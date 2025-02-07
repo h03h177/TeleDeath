@@ -1,5 +1,5 @@
 # TeleDeath
-TeleDeath tool for ban telegram account/channel with built-in infinty proxy servers and built apis keys for worldwide attack!
+TeleDeath tool for ban telegram account/channel with built-in infinty proxy servers and built-in apis keys for worldwide attack!
 
 to take the tool you have to dm me on telegram or instagram
 
