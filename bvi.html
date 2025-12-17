@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:*; font-src 'self'; connect-src 'self'; frame-ancestors 'none';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta name="robots" content="noindex, nofollow">
+    <title>حاسبة XP وأرباح Hay Day المتقدمة</title>
+
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #1a2332;
+            --container-bg: rgba(15, 25, 45, 0.65);
+            --text-primary: #e0e0e0;
+            --accent: #a0d8ff;
+            --accent-hover: #64c8ff;
+            --button-gradient: linear-gradient(45deg, #0088ff, #00aaff);
+            --error: #ff6b6b;
+            --success: #51cf66;
+        }
+
+        body.light-mode {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #e0e8f0;
+            --container-bg: rgba(255, 255, 255, 0.8);
+            --text-primary: #222;
+            --accent: #0066cc;
+            --accent-hover: #0055aa;
+            --button-gradient: linear-gradient(45deg, #0066cc, #0088ff);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.5s ease;
+        }
+
+        /* Background Effects */
+        .background {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+            background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary));
+            overflow: hidden;
+        }
+
+        .stars-layer { animation: moveStarsSlow 120s linear infinite; }
+        .stars-layer2 { animation: moveStarsFast 80s linear infinite; }
+
+        @keyframes moveStarsSlow { 0% { transform: translateY(0); } 100% { transform: translateY(-2000px); } }
+        @keyframes moveStarsFast { 0% { transform: translateY(0); } 100% { transform: translateY(-2000px); } }
+
+        .star-particle {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.7;
+            box-shadow: 0 0 8px #fff;
+        }
+
+        .meteor-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+            border-radius: 50%;
+            box-shadow: 0 0 20px 4px rgba(0, 255, 255, 0.8);
+            animation: meteorFall linear infinite;
+        }
+
+        @keyframes meteorFall {
+            0% { transform: translateY(-100px) translateX(-100px) rotate(45deg); opacity: 0; }
+            15% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(110vw) rotate(45deg); opacity: 0; }
+        }
+
+        .coin-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffd700, 0 0 30px #ffaa00;
+            opacity: 0.8;
+            animation: fallCoins linear infinite, glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes fallCoins {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 15px #ffd700, 0 0 30px #ffaa00; }
+            to { box-shadow: 0 0 25px #ffd700, 0 0 50px #ffaa00; }
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: var(--container-bg);
+            border-radius: 25px;
+            backdrop-filter: blur(5px); /* قللت شوية للأداء */
+            -webkit-backdrop-filter: blur(5px); /* دعم iOS/Safari */
+            filter: saturate(1.8); /* تحسين لـ iOS */
+            will-change: backdrop-filter; /* تحسين أداء Chrome/Android */
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(80, 180, 255, 0.25);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        /* Fallback لو الـ blur مش مدعوم (نادر جدًا في 2025) */
+        @supports not (backdrop-filter: blur(5px)) {
+            .container {
+                background: rgba(15, 25, 45, 0.85); /* خلفية أقوى بدون blur */
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent);
+            text-shadow: 0 0 15px rgba(100, 200, 255, 0.6);
+            margin-bottom: 40px;
+            font-size: 32px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 15px rgba(100, 200, 255, 0.6); }
+            to { text-shadow: 0 0 25px rgba(100, 200, 255, 0.9); }
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 10px;
+            font-size: 19px;
+            font-weight: bold;
+            color: #b8e0ff;
+        }
+
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            margin: 10px 0;
+            border: 1px solid rgba(100, 200, 255, 0.4);
+            border-radius: 16px;
+            background: rgba(20, 35, 70, 0.1);
+            backdrop-filter: blur(5px); /* قللت شوية */
+            -webkit-backdrop-filter: blur(5px);
+            filter: saturate(1.8);
+            will-change: backdrop-filter;
+            color: #fff;
+            font-size: 18px;
+            transition: all 0.4s ease;
+        }
+
+        select {
+            appearance: none;
+            padding-right: 50px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a0d8ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            background-size: 22px;
+            cursor: pointer;
+        }
+
+        select:hover, input:hover {
+            border-color: var(--accent-hover);
+            background: rgba(30, 45, 90, 0.25);
+            box-shadow: 0 0 12px rgba(100, 200, 255, 0.4);
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 18px rgba(100, 200, 255, 0.6);
+            background: rgba(30, 50, 100, 0.25);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: var(--button-gradient);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 22px;
+            margin-top: 20px;
+            box-shadow: 0 6px 20px rgba(0, 120, 255, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        button:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0, 120, 255, 0.7), 0 0 20px rgba(100, 200, 255, 0.8);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .small-btn {
+            width: auto;
+            padding: 12px 20px;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .error-msg {
+            color: var(--error);
+            font-size: 16px;
+            text-align: center;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .result {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(20, 35, 70, 0.5);
+            border-radius: 18px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 2.2;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            backdrop-filter: blur(5px); /* إضافة blur هنا كمان */
+            -webkit-backdrop-filter: blur(5px);
+            filter: saturate(1.8);
+            will-change: backdrop-filter;
+        }
+
+        .result.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .harvest-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .harvest {
+            background: rgba(25, 45, 90, 0.6);
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            filter: saturate(1.8);
+            will-change: backdrop-filter;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .harvest:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 120, 255, 0.5);
+            background: rgba(35, 55, 110, 0.8);
+        }
+
+        .xp-bars {
+            margin-top: 30px;
+            padding: 30px;
+            background: rgba(20, 35, 70, 0.5);
+            border-radius: 18px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 2.2;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            filter: saturate(1.8);
+            will-change: backdrop-filter;
+        }
+
+        .xp-bars.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bar-container {
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .bar-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .bar {
+            height: 30px;
+            background: linear-gradient(90deg, #51cf66, #a0d8ff);
+            border-radius: 15px;
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        .bar-value {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            line-height: 30px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* جديد: قسم التوصيات */
+        .recommendations {
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(20, 35, 70, 0.5);
+            border-radius: 18px;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .rec-item {
+            background: rgba(25, 45, 90, 0.6);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .plant-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 10px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+        }
+
+        /* جديد: للأشجار والشجيرات */
+        .extra-options {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .extra-options.visible {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 20px auto; }
+            h1 { font-size: 28px; }
+            button { font-size: 20px; padding: 16px; }
+            select, input { font-size: 16px; }
+        }
+
+        /* إضافة لعداد الزوار: شريط متحرك صغير أعلى الشاشة، زجاجي، مطابق الخلفية */
+        .visitor-count {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: rgba(10, 14, 23, 0.6); /* مطابق للخلفية مع شفافية */
+            border-bottom: 1px solid rgba(80, 180, 255, 0.15);
+            text-align: center;
+            font-size: 14px;
+            line-height: 30px;
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            filter: saturate(1.5);
+            will-change: backdrop-filter;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .visitor-count .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 10s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .visitor-count strong {
+            color: var(--accent);
+            font-size: 15px;
+        }
+    </style>
+
+    <!-- إضافة مكتبات Firebase لتخزين العداد -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+    <div class="background">
+        <div class="stars-layer" id="starsLayer"></div>
+        <div class="stars-layer2" id="starsLayer2"></div>
+        <div class="meteors-layer" id="meteorsLayer"></div>
+        <div class="coins-layer" id="coinsLayer"></div>
+    </div>
+
+    <!-- إضافة عرض العداد: شريط متحرك صغير، زجاجي، مطابق الخلفية -->
+    <div class="visitor-count">
+        <div class="marquee">
+            <strong>عدد الزوار الفريدين:</strong> <span id="visitorCount">جاري التحميل...</span> 👥
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>🌌 حاسبة XP وأرباح Hay Day المتقدمة 🌠</h1>
+        
+        <div class="controls">
+            <button type="button" id="toggleTheme" class="small-btn">🌙 تبديل الوضع</button>
+            <button type="button" id="toggleLang" class="small-btn">🇺🇸 English</button>
+            <button type="button" id="copyResult" class="small-btn" style="display:none;">📋 نسخ النتيجة</button>
+            <button type="button" id="showRecs" class="small-btn">🏆 التوصيات والأفضل</button>
+        </div>
+
+        <label for="category">اختر الفئة:</label>
+        <select id="category"></select>
+
+        <label for="plantType">اختر النوع:</label>
+        <div class="search-box">
+            <input type="text" id="plantSearch" placeholder="ابحث عن نبات... (مثل قمح أو تفاح)">
+        </div>
+        <select id="plantType"></select>
+        
+        <label for="quantity">عدد الحقول / الأشجار / الشجيرات:</label>
+        <input type="number" id="quantity" min="1" max="9999" value="1" placeholder="أدخل عددًا من 1 إلى 9999">
+
+        <!-- جديد: خيارات إضافية للأشجار والشجيرات -->
+        <div id="extraOptions" class="extra-options">
+            <label for="harvestCount">عدد الحصادات المرغوب (1-4):</label>
+            <input type="number" id="harvestCount" min="1" max="4" value="4">
+        </div>
+        
+        <div class="error-msg" id="errorMsg"></div>
+        
+        <button type="button" id="calcBtn">احسب الآن!</button>
+        
+        <div id="harvestInfo" class="harvest-info" style="display:none;"></div>
+        <div id="xpBars" class="xp-bars" style="display:none;"></div>
+        <div id="result" class="result"></div>
+
+        <!-- جديد: قسم التوصيات -->
+        <div id="recommendations" class="recommendations" style="display:none;">
+            <h2 style="text-align:center; color:var(--accent);">🏆 التوصيات المتقدمة</h2>
+            <div id="bestXP" class="rec-item"></div>
+            <div id="bestProfit" class="rec-item"></div>
+            <div id="bestTrees" class="rec-item"></div>
+        </div>
+
+        <div class="note">
+            الأسعار قابلة للتغيير في اللعبة حسب التحديثات.<br>
+            تحقق من Hay Day Wiki لأحدث الأسعار والتغييرات (البيانات محدثة حتى ديسمبر 2025 بدون تغييرات كبيرة في المحاصيل والأشجار).<br>
+            آخر تحديث للحاسبة: ديسمبر 2025.
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+
+        // === البيانات ===
+        const SAW_COST = 100;
+        const AXE_COST = 50;
+
+        const plants = {
+            // Crops
+            wheat: { name: 'قمح', en_name: 'Wheat', emoji: '🌾', level: 1, seedCost: 1, yield: 2, xp: 1, maxPricePerUnit: 36, growthMinutes: 2, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/e/e2/Wheat.png' },
+            corn: { name: 'ذرة', en_name: 'Corn', emoji: '🌽', level: 2, seedCost: 2, yield: 2, xp: 1, maxPricePerUnit: 72, growthMinutes: 5, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/f/f8/Corn.png' },
+            soybean: { name: 'فول الصويا', en_name: 'Soybean', emoji: '🌱', level: 5, seedCost: 10, yield: 2, xp: 2, maxPricePerUnit: 108, growthMinutes: 20, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/9/9e/Soybean.png' },
+            sugarcane: { name: 'قصب السكر', en_name: 'Sugarcane', emoji: '🎋', level: 7, seedCost: 3, yield: 2, xp: 3, maxPricePerUnit: 144, growthMinutes: 30, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/0/03/Sugarcane.png' },
+            carrot: { name: 'جزر', en_name: 'Carrot', emoji: '🥕', level: 9, seedCost: 4, yield: 2, xp: 2, maxPricePerUnit: 72, growthMinutes: 10, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/c/c3/Carrot.png' },
+            indigo: { name: 'نيلي', en_name: 'Indigo', emoji: '🌺', level: 13, seedCost: 25, yield: 2, xp: 5, maxPricePerUnit: 252, growthMinutes: 120, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/4/48/Indigo.png' },
+            pumpkin: { name: 'قرع', en_name: 'Pumpkin', emoji: '🎃', level: 15, seedCost: 30, yield: 2, xp: 6, maxPricePerUnit: 324, growthMinutes: 180, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/6/64/Pumpkin.png' },
+            cotton: { name: 'قطن', en_name: 'Cotton', emoji: '☁️', level: 18, seedCost: 28, yield: 2, xp: 6, maxPricePerUnit: 288, growthMinutes: 150, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/c/c3/Cotton.png' },
+            chili: { name: 'فلفل حار', en_name: 'Chili Pepper', emoji: '🌶️', level: 25, seedCost: 34, yield: 2, xp: 7, maxPricePerUnit: 360, growthMinutes: 240, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/a/ab/Chili_Pepper.png' },
+            tomato: { name: 'طماطم', en_name: 'Tomato', emoji: '🍅', level: 30, seedCost: 32, yield: 2, xp: 8, maxPricePerUnit: 432, growthMinutes: 360, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/9/9d/Tomato.png' },
+            strawberry: { name: 'فراولة', en_name: 'Strawberry', emoji: '🍓', level: 34, seedCost: 35, yield: 2, xp: 10, maxPricePerUnit: 504, growthMinutes: 480, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/6/6d/Strawberry.png' },
+            potato: { name: 'بطاطس', en_name: 'Potato', emoji: '🥔', level: 35, seedCost: 25, yield: 2, xp: 7, maxPricePerUnit: 360, growthMinutes: 220, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/c/c2/Potato.png' },
+            asparagus: { name: 'هليون', en_name: 'Asparagus', emoji: '🌱', level: 49, seedCost: 40, yield: 2, xp: 8, maxPricePerUnit: 432, growthMinutes: 360, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/4/45/Asparagus.png' },
+            pineapple: { name: 'أناناس', en_name: 'Pineapple', emoji: '🍍', level: 52, seedCost: 45, yield: 2, xp: 9, maxPricePerUnit: 468, growthMinutes: 480, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/f/fb/Pineapple.png' },
+            rice: { name: 'أرز', en_name: 'Rice', emoji: '🌾', level: 56, seedCost: 15, yield: 2, xp: 4, maxPricePerUnit: 180, growthMinutes: 45, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/d/da/Rice.png' },
+            lettuce: { name: 'خس', en_name: 'Lettuce', emoji: '🥬', level: 58, seedCost: 30, yield: 2, xp: 5, maxPricePerUnit: 252, growthMinutes: 180, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/d/da/Lettuce.png' },
+            garlic: { name: 'ثوم', en_name: 'Garlic', emoji: '🧄', level: 60, seedCost: 20, yield: 2, xp: 6, maxPricePerUnit: 288, growthMinutes: 120, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/c/cc/Garlic.png' },
+            sunflower: { name: 'عباد الشمس', en_name: 'Sunflower', emoji: '🌻', level: 63, seedCost: 35, yield: 2, xp: 7, maxPricePerUnit: 360, growthMinutes: 240, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/8/81/Sunflower.png' },
+            onion: { name: 'بصل', en_name: 'Onion', emoji: '🧅', level: 68, seedCost: 25, yield: 2, xp: 5, maxPricePerUnit: 252, growthMinutes: 180, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/5/51/Onion.png' },
+            cucumber: { name: 'خيار', en_name: 'Cucumber', emoji: '🥒', level: 70, seedCost: 30, yield: 2, xp: 6, maxPricePerUnit: 288, growthMinutes: 240, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/5/59/Cucumber.png' },
+            beetroot: { name: 'شمندر', en_name: 'Beetroot', emoji: '🫒', level: 72, seedCost: 40, yield: 2, xp: 7, maxPricePerUnit: 360, growthMinutes: 300, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/5/56/Beetroot.png' },
+            bellpepper: { name: 'فلفل حلو', en_name: 'Bell Pepper', emoji: '🫑', level: 74, seedCost: 50, yield: 2, xp: 8, maxPricePerUnit: 432, growthMinutes: 360, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/e/e2/Bell_Pepper.png' },
+            ginger: { name: 'زنجبيل', en_name: 'Ginger', emoji: '🫚', level: 78, seedCost: 60, yield: 2, xp: 9, maxPricePerUnit: 468, growthMinutes: 420, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/8/85/Ginger.png' },
+            tealeaf: { name: 'ورق شاي', en_name: 'Tea Leaf', emoji: '🍵', level: 80, seedCost: 70, yield: 2, xp: 10, maxPricePerUnit: 504, growthMinutes: 480, type: 'crops', image: 'https://static.wikia.nocookie.net/hayday/images/e/e3/Tea_Leaf.png' },
+
+            // Trees
+            apple: { name: 'تفاح', en_name: 'Apple', emoji: '🍎', level: 15, plantCost: 160, harvests: [2,3,4,4], xpPerFruit: 7, pricePerFruit: 39, growthHours: 16, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/7/7d/Apple.png' },
+            cherry: { name: 'كرز', en_name: 'Cherry', emoji: '🍒', level: 22, plantCost: 410, harvests: [2,3,4,4], xpPerFruit: 13, pricePerFruit: 68, growthHours: 27, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/2/20/Cherry.png' },
+            lemon: { name: 'ليمون', en_name: 'Lemon', emoji: '🍋', level: 26, plantCost: 530, harvests: [2,3,4,4], xpPerFruit: 14, pricePerFruit: 71, growthHours: 29, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/3/35/Lemon.png' },
+            olive: { name: 'زيتون', en_name: 'Olive', emoji: '🫒', level: 36, plantCost: 820, harvests: [2,3,4,4], xpPerFruit: 18, pricePerFruit: 96, growthHours: 32, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/5/5f/Olive.png' },
+            peach: { name: 'خوخ', en_name: 'Peach', emoji: '🍑', level: 42, plantCost: 690, harvests: [2,3,4,4], xpPerFruit: 19, pricePerFruit: 100, growthHours: 30, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/e/e2/Peach.png' },
+            plum: { name: 'برقوق', en_name: 'Plum', emoji: '🍑', level: 57, plantCost: 950, harvests: [2,3,4,4], xpPerFruit: 20, pricePerFruit: 104, growthHours: 35, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/e/e6/Plum.png' },
+            avocado: { name: 'أفوكادو', en_name: 'Avocado', emoji: '🥑', level: 66, plantCost: 1100, harvests: [2,3,4,4], xpPerFruit: 22, pricePerFruit: 114, growthHours: 36, type: 'trees', image: 'https://thumbs.dreamstime.com/b/illustration-purple-nebula-glowing-stars-deep-space-fantasy-galaxy-concept-cosmic-art-sci-fi-designs-beautiful-367458125.jpg' },
+            coconut: { name: 'جوز هند', en_name: 'Coconut', emoji: '🥥', level: 71, plantCost: 1200, harvests: [2,3,4,4], xpPerFruit: 24, pricePerFruit: 124, growthHours: 38, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/2/2f/Coconut.png' },
+            fig: { name: 'تين', en_name: 'Fig', emoji: '🍇', level: 76, plantCost: 1300, harvests: [2,3,4,4], xpPerFruit: 25, pricePerFruit: 129, growthHours: 40, type: 'trees', image: 'https://thumbs.dreamstime.com/b/space-nebula-universe-bright-astronomy-starlight-starscape-blue-pink-purple-science-abstract-astronomy-background-black-blue-169718723.jpg' },
+            almond: { name: 'لوز', en_name: 'Almond', emoji: '🌰', level: 88, plantCost: 1400, harvests: [2,3,4,4], xpPerFruit: 27, pricePerFruit: 139, growthHours: 42, type: 'trees', image: 'https://www.shutterstock.com/image-vector/starry-night-sky-dark-blue-600nw-2471719709.jpg' },
+            pomegranate: { name: 'رمان', en_name: 'Pomegranate', emoji: '🍎', level: 94, plantCost: 1100, harvests: [2,3,4,4], xpPerFruit: 28, pricePerFruit: 144, growthHours: 44, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/1/1b/Pomegranate.png' },
+            cacao: { name: 'كاكاو', en_name: 'Cacao', emoji: '🍫', level: 97, plantCost: 1550, harvests: [2,3,4,4], xpPerFruit: 29, pricePerFruit: 149, growthHours: 46, type: 'trees', image: 'https://static.wikia.nocookie.net/hayday/images/6/60/Cacao.png' },
+
+            // Bushes
+            raspberry: { name: 'توت أحمر', en_name: 'Raspberry', emoji: '🍓', level: 19, plantCost: 220, harvests: [2,3,4,4], xpPerFruit: 9, pricePerFruit: 46, growthHours: 18, type: 'bushes', image: 'https://static.wikia.nocookie.net/hayday/images/1/1f/Raspberry.png' },
+            blackberry: { name: 'توت أسود', en_name: 'Blackberry', emoji: '🫐', level: 26, plantCost: 530, harvests: [2,3,4,4], xpPerFruit: 16, pricePerFruit: 82, growthHours: 24, type: 'bushes', image: 'https://static.wikia.nocookie.net/hayday/images/2/25/Blackberry.png' },
+            blueberry: { name: 'توت أزرق', en_name: 'Blueberry', emoji: '🫐', level: 39, plantCost: 720, harvests: [2,3,4,4], xpPerFruit: 19, pricePerFruit: 100, growthHours: 28, type: 'bushes', image: 'https://static.wikia.nocookie.net/hayday/images/a/af/Blueberries.png' },
+            gooseberry: { name: 'غوسبيري', en_name: 'Gooseberry', emoji: '🫐', level: 49, plantCost: 900, harvests: [2,3,4,4], xpPerFruit: 21, pricePerFruit: 109, growthHours: 30, type: 'bushes', image: 'https://render.fineartamerica.com/images/rendered/default/wood-print/10/6.5/break/images/artworkimages/medium/3/science-light-space-planet-astronomy-bright-sky-dark-planets-glowing-galaxy-fantasy-star-abstract-nebula-star-night-outer-cosmos-deep-universe-black-nebula-illustration-galaxy-space-blue-supernova-n-akkash.jpg' },
+            elderberry: { name: 'إلدربيري', en_name: 'Elderberry', emoji: '🫐', level: 59, plantCost: 1000, harvests: [2,3,4,4], xpPerFruit: 23, pricePerFruit: 119, growthHours: 32, type: 'bushes', image: 'https://i.etsystatic.com/31950256/r/il/240e94/7385562408/il_570xN.7385562408_rp92.jpg' },
+            coffee: { name: 'قهوة', en_name: 'Coffee', emoji: '☕', level: 69, plantCost: 1100, harvests: [2,3,4,4], xpPerFruit: 25, pricePerFruit: 129, growthHours: 34, type: 'bushes', image: 'https://static.wikia.nocookie.net/hayday/images/3/33/Coffee_Bean.png' },
+            redcurrant: { name: 'ريدكارانت', en_name: 'Redcurrant', emoji: '🍒', level: 79, plantCost: 1200, harvests: [2,3,4,4], xpPerFruit: 27, pricePerFruit: 139, growthHours: 36, type: 'bushes', image: 'https://thumbs.dreamstime.com/b/magical-night-scene-moon-resting-above-blue-glow-earth-s-cloudy-atmosphere-contrasted-against-starry-universe-bright-full-100559097.jpg' },
+            guava: { name: 'غوافا', en_name: 'Guava', emoji: '🥭', level: 89, plantCost: 1300, harvests: [2,3,4,4], xpPerFruit: 29, pricePerFruit: 149, growthHours: 38, type: 'bushes', image: 'https://static.wikia.nocookie.net/hayday/images/8/87/Guava.png' },
+            nectarine: { name: 'نكتارين', en_name: 'Nectarine', emoji: '🍑', level: 99, plantCost: 1400, harvests: [2,3,4,4], xpPerFruit: 31, pricePerFruit: 159, growthHours: 40, type: 'bushes', image: 'https://static.wikia.nocookie.net/hayday/images/0/07/Nectar_Bush_Stage_2.png/revision/latest?cb=20161024092640' }
+        };
+
+        // === العناصر ===
+        const els = {
+            category: document.getElementById('category'),
+            plantType: document.getElementById('plantType'),
+            plantSearch: document.getElementById('plantSearch'),
+            quantity: document.getElementById('quantity'),
+            harvestCount: document.getElementById('harvestCount'),
+            extraOptions: document.getElementById('extraOptions'),
+            errorMsg: document.getElementById('errorMsg'),
+            result: document.getElementById('result'),
+            harvestInfo: document.getElementById('harvestInfo'),
+            xpBars: document.getElementById('xpBars'),
+            copyResult: document.getElementById('copyResult'),
+            toggleTheme: document.getElementById('toggleTheme'),
+            toggleLang: document.getElementById('toggleLang'),
+            calcBtn: document.getElementById('calcBtn'),
+            h1: document.querySelector('h1'),
+            note: document.querySelector('.note'),
+            recommendations: document.getElementById('recommendations'),
+            bestXP: document.getElementById('bestXP'),
+            bestProfit: document.getElementById('bestProfit'),
+            bestTrees: document.getElementById('bestTrees'),
+            showRecs: document.getElementById('showRecs')
+        };
+
+        // === الحالة ===
+        let currentLang = localStorage.getItem('lang') || 'ar';
+
+        // === الترجمة ===
+        function t(ar, en) {
+            return currentLang === 'ar' ? ar : en;
+        }
+
+        // === تنسيق الوقت ===
+        function formatTime(minutes) {
+            if (minutes <= 0) return t('فوري', 'Instant');
+            const days = Math.floor(minutes / 1440);
+            const hours = Math.floor((minutes % 1440) / 60);
+            const mins = minutes % 60;
+            let str = '';
+            if (days > 0) str += `${days} ${t('يوم', 'day')} `;
+            if (hours > 0) str += `${hours} ${t('ساعة', 'hour')} `;
+            if (mins > 0) str += `${mins} ${t('دقيقة', 'minute')}`;
+            return str.trim() || t('فوري', 'Instant');
+        }
+
+        // === تحديث قائمة النباتات مع صورة ===
+        function updatePlantSelect(filter = '') {
+            const category = els.category.value;
+            els.plantType.innerHTML = `<option value="">-- ${t('اختر النوع', 'Select Type')} --</option>`;
+            for (const key in plants) {
+                const p = plants[key];
+                if (p.type === category) {
+                    const name = currentLang === 'ar' ? p.name : p.en_name;
+                    if (!filter || name.toLowerCase().includes(filter.toLowerCase())) {
+                        const opt = document.createElement('option');
+                        opt.value = key;
+                        opt.textContent = `${p.emoji} ${name} (${t('مستوى', 'Level')} ${p.level})`;
+                        opt.dataset.image = p.image || '';
+                        els.plantType.appendChild(opt);
+                    }
+                }
+            }
+        }
+
+        // === التحقق من الإدخال ===
+        function validateInput() {
+            els.errorMsg.style.display = 'none';
+            const qty = parseInt(els.quantity.value);
+            if (isNaN(qty) || qty < 1 || qty > 9999) {
+                els.errorMsg.textContent = t('يرجى إدخال عدد صحيح بين 1 و 9999', 'Please enter an integer between 1 and 9999');
+                els.errorMsg.style.display = 'block';
+                return false;
+            }
+            if (!els.plantType.value) {
+                els.errorMsg.textContent = t('يرجى اختيار نوع النبات', 'Please select a plant type');
+                els.errorMsg.style.display = 'block';
+                return false;
+            }
+            return true;
+        }
+
+        // === التوصيات (مع الحل للصور) ===
+        function showRecommendations() {
+            els.recommendations.style.display = 'block';
+            // أفضل للـ XP في الساعة (محاصيل)
+            let bestXP = null, bestXPValue = 0;
+            let bestProfit = null, bestProfitValue = 0;
+            Object.values(plants).filter(p => p.type === 'crops').forEach(p => {
+                const xpPerHour = (p.xp * 60) / p.growthMinutes;
+                const netPerUnit = (p.maxPricePerUnit * p.yield / 10) - p.seedCost;
+                const profitPerHour = netPerUnit > 0 ? (netPerUnit * 60) / p.growthMinutes : 0;
+                if (xpPerHour > bestXPValue) {
+                    bestXPValue = xpPerHour;
+                    bestXP = p;
+                }
+                if (profitPerHour > bestProfitValue) {
+                    bestProfitValue = profitPerHour;
+                    bestProfit = p;
+                }
+            });
+
+            // أفضل أشجار/شجيرات (متوسط ربح لكل حصاد بعد الإزالة)
+            let bestTree = null, bestTreeAvg = 0;
+            Object.values(plants).filter(p => p.type !== 'crops').forEach(p => {
+                const totalFruits = p.harvests.reduce((a,b) => a+b, 0);
+                const totalCoins = totalFruits * p.pricePerFruit;
+                const totalCost = p.plantCost + (p.type === 'trees' ? SAW_COST : AXE_COST);
+                const avgPerHarvest = (totalCoins - totalCost) / 4;
+                if (avgPerHarvest > bestTreeAvg) {
+                    bestTreeAvg = avgPerHarvest;
+                    bestTree = p;
+                }
+            });
+
+            const nameXP = currentLang === 'ar' ? bestXP.name : bestXP.en_name;
+            const nameProfit = currentLang === 'ar' ? bestProfit.name : bestProfit.en_name;
+            const nameTree = currentLang === 'ar' ? bestTree.name : bestTree.en_name;
+
+            els.bestXP.innerHTML = `<strong>${bestXP.emoji} ${nameXP}</strong><br>${t('أفضل للـ XP في الساعة', 'Best for XP per Hour')}: ${Math.round(bestXPValue)} XP/${t('ساعة', 'hour')}<br><img src="${bestXP.image}" class="plant-image" alt="${nameXP}" loading="lazy">`;
+
+            els.bestProfit.innerHTML = `<strong>${bestProfit.emoji} ${nameProfit}</strong><br>${t('أفضل ربح صافي في الساعة', 'Best Net Profit per Hour')}: ${Math.round(bestProfitValue)} 🪙/${t('ساعة', 'hour')}<br><img src="${bestProfit.image}" class="plant-image" alt="${nameProfit}" loading="lazy">`;
+
+            els.bestTrees.innerHTML = `<strong>${bestTree.emoji} ${nameTree}</strong><br>${t('أفضل متوسط ربح للأشجار/الشجيرات', 'Best Average Profit for Trees/Bushes')}: ${Math.round(bestTreeAvg)} 🪙/${t('حصاد', 'harvest')}<br><img src="${bestTree.image}" class="plant-image" alt="${nameTree}" loading="lazy">`;
+        }
+
+        // === الحساب الرئيسي (مع دعم عدد حصادات مخصص للأشجار) ===
+        function calculate() {
+            if (!validateInput()) {
+                els.result.classList.remove('visible');
+                els.harvestInfo.style.display = 'none';
+                els.xpBars.style.display = 'none';
+                els.copyResult.style.display = 'none';
+                return;
+            }
+
+            const key = els.plantType.value;
+            const qty = parseInt(els.quantity.value);
+            const plant = plants[key];
+            const name = currentLang === 'ar' ? plant.name : plant.en_name;
+            const harvestCount = plant.type === 'crops' ? 1 : parseInt(els.harvestCount.value) || 4;
+
+            els.harvestInfo.innerHTML = '';
+            els.harvestInfo.style.display = 'grid';
+            els.xpBars.innerHTML = '';
+            els.xpBars.style.display = 'none';
+
+            let totalXP = 0;
+            let totalCoins = 0;
+            let resultText = '';
+
+            if (plant.type === 'crops') {
+                const units = plant.yield * qty;
+                const xp = plant.xp * qty;
+                const coins = Math.round((units * plant.maxPricePerUnit) / 10);
+                totalXP = xp;
+                totalCoins = coins;
+
+                const seedCost = plant.seedCost * qty;
+                const netCoins = coins - seedCost;
+                const profitPerHour = plant.growthMinutes > 0 ? Math.round(netCoins / (plant.growthMinutes / 60)) : netCoins;
+
+                const div = document.createElement('div');
+                div.className = 'harvest';
+                div.innerHTML = `
+                    <strong>${t('الحصاد الوحيد', 'Single Harvest')}</strong><br><br>
+                    ${units} ${t('وحدة', 'unit')} ${plant.emoji}<br>
+                    <img src="${plant.image}" class="plant-image" alt="${name}" loading="lazy">
+                    ${t('وقت النمو', 'Growth Time')}: ${formatTime(plant.growthMinutes)}<br>
+                    XP: ${xp} ⭐<br>
+                    ${t('عملات', 'Coins')}: ${coins} 🪙
+                `;
+                els.harvestInfo.appendChild(div);
+
+                resultText = `${plant.emoji} ${name} × ${qty} ${t('حقول', 'fields')}\n\n` +
+                    `${t('وقت النمو', 'Growth Time')}: ${formatTime(plant.growthMinutes)}\n\n` +
+                    `${t('إجمالي XP', 'Total XP')}: ${totalXP} ⭐\n` +
+                    `${t('إجمالي العملات', 'Total Coins')}: ${totalCoins} 🪙\n` +
+                    `${t('تكلفة البذور', 'Seed Cost')}: ${seedCost} 🪙\n` +
+                    `${t('صافي الربح', 'Net Profit')}: ${netCoins >= 0 ? '+' : ''}${netCoins} 🪙\n` +
+                    `${t('صافي الربح لكل ساعة', 'Net Profit per Hour')}: ${profitPerHour >= 0 ? '+' : ''}${profitPerHour} 🪙\n\n` +
+                    t('لا تحتاج إزالة', 'No removal needed');
+
+                els.result.innerHTML = `
+                    <strong>${plant.emoji} ${name} × ${qty} ${t('حقول', 'fields')}</strong><br><br>
+                    <img src="${plant.image}" class="plant-image" alt="${name}" loading="lazy">
+                    ${t('وقت النمو', 'Growth Time')}: ${formatTime(plant.growthMinutes)}<br><br>
+                    ${t('إجمالي XP', 'Total XP')}: ${totalXP} ⭐<br>
+                    ${t('إجمالي العملات', 'Total Coins')}: ${totalCoins} 🪙<br>
+                    ${t('تكلفة البذور', 'Seed Cost')}: ${seedCost} 🪙<br>
+                    <strong style="color:${netCoins >= 0 ? 'var(--success)' : 'var(--error)'}">
+                        ${t('صافي الربح', 'Net Profit')}: ${netCoins >= 0 ? '+' : ''}${netCoins} 🪙
+                    </strong><br><br>
+                    <strong>${t('صافي الربح لكل ساعة', 'Net Profit per Hour')}: ${profitPerHour >= 0 ? '+' : ''}${profitPerHour} 🪙</strong><br><br>
+                    <small>${t('لا تحتاج إزالة', 'No removal needed')}</small>
+                `;
+
+            } else {
+                const growthMinutes = plant.growthHours * 60;
+                const xpValues = [];
+
+                let cumulativeFruits = 0;
+                for (let i = 0; i < harvestCount; i++) {
+                    const fruits = plant.harvests[i];
+                    const fruitsTotal = fruits * qty;
+                    cumulativeFruits += fruitsTotal;
+                    const xp = fruits * plant.xpPerFruit * qty;
+                    const coins = fruits * plant.pricePerFruit * qty;
+                    totalXP += xp;
+                    totalCoins += coins;
+                    xpValues.push(xp);
+
+                    const growthText = i === 0 
+                        ? `(${t('جاهز فور الزراعة', 'Ready immediately after planting')})`
+                        : `${t('وقت النمو', 'Growth Time')}: ${formatTime(growthMinutes)}`;
+
+                    const div = document.createElement('div');
+                    div.className = 'harvest';
+                    div.innerHTML = `
+                        <strong>${t('الحصاد', 'Harvest')} ${i + 1}</strong><br><br>
+                        ${fruitsTotal} ${t('ثمرة', 'fruit')} ${plant.emoji}<br>
+                        ${growthText}<br>
+                        XP: ${xp} ⭐<br>
+                        ${t('عملات', 'Coins')}: ${coins} 🪙
+                    `;
+                    els.harvestInfo.appendChild(div);
+                }
+
+                const plantCost = plant.plantCost * qty;
+                const removalCost = harvestCount === 4 ? (plant.type === 'trees' ? SAW_COST * qty : AXE_COST * qty) : 0;
+                const removalNote = harvestCount === 4 ? (plant.type === 'trees' ? `(منشار × ${qty})` : `(فأس × ${qty})`) : '';
+                const netCoins = totalCoins - plantCost - removalCost;
+                const totalTimeHours = (growthMinutes * (harvestCount - 1)) / 60;
+                const profitPerHour = totalTimeHours > 0 ? Math.round(netCoins / totalTimeHours) : netCoins;
+                const avgProfitPerHarvest = Math.round(netCoins / harvestCount);
+
+                resultText = `${plant.emoji} ${name} × ${qty}\n\n` +
+                    `${t('وقت النمو بين الحصادات', 'Growth Time Between Harvests')}: ${formatTime(growthMinutes)}\n` +
+                    `${t('إجمالي وقت النمو للـ' + harvestCount + ' حصادات', 'Total Growth Time for ' + harvestCount + ' Harvests')}: ${formatTime(growthMinutes * harvestCount)}\n\n` +
+                    `${t('إجمالي XP', 'Total XP')}: ${totalXP} ⭐\n` +
+                    `${t('إجمالي العملات', 'Total Coins')}: ${totalCoins} 🪙\n` +
+                    `${t('تكلفة الزراعة', 'Planting Cost')}: ${plantCost} 🪙\n` +
+                    `${t('تكلفة الإزالة', 'Removal Cost')} ${removalNote}: ${removalCost} 🪙\n` +
+                    `${t('صافي الربح', 'Net Profit')}: ${netCoins >= 0 ? '+' : ''}${netCoins} 🪙\n` +
+                    `${t('صافي الربح لكل ساعة (على ' + harvestCount + ' حصادات)', 'Net Profit per Hour (over ' + harvestCount + ' harvests)')}: ${profitPerHour >= 0 ? '+' : ''}${profitPerHour} 🪙\n` +
+                    `${t('متوسط الربح لكل حصاد', 'Average Profit per Harvest')}: ${avgProfitPerHarvest >= 0 ? '+' : ''}${avgProfitPerHarvest} 🪙\n\n` +
+                    (harvestCount === 4 ? t('بعد الحصاد الرابع تحتاج إزالة', 'After the fourth harvest, removal is needed') : '');
+
+                els.result.innerHTML = `
+                    <strong>${plant.emoji} ${name} × ${qty}</strong><br><br>
+                    ${t('وقت النمو بين الحصادات', 'Growth Time Between Harvests')}: ${formatTime(growthMinutes)}<br>
+                    ${t('إجمالي وقت النمو للـ' + harvestCount + ' حصادات', 'Total Growth Time for ' + harvestCount + ' Harvests')}: ${formatTime(growthMinutes * harvestCount)}<br><br>
+                    ${t('إجمالي XP', 'Total XP')}: ${totalXP} ⭐<br>
+                    ${t('إجمالي العملات', 'Total Coins')}: ${totalCoins} 🪙<br>
+                    ${t('تكلفة الزراعة', 'Planting Cost')}: ${plantCost} 🪙<br>
+                    ${harvestCount === 4 ? `${t('تكلفة الإزالة', 'Removal Cost')} ${removalNote}: ${removalCost} 🪙<br>` : ''}
+                    <strong style="color:${netCoins >= 0 ? 'var(--success)' : 'var(--error)'}">
+                        ${t('صافي الربح', 'Net Profit')}: ${netCoins >= 0 ? '+' : ''}${netCoins} 🪙
+                    </strong><br><br>
+                    <strong>${t('صافي الربح لكل ساعة (على ' + harvestCount + ' حصادات)', 'Net Profit per Hour (over ' + harvestCount + ' harvests)')}: ${profitPerHour >= 0 ? '+' : ''}${profitPerHour} 🪙</strong><br><br>
+                    <strong>${t('متوسط الربح لكل حصاد', 'Average Profit per Harvest')}: ${avgProfitPerHarvest >= 0 ? '+' : ''}${avgProfitPerHarvest} 🪙</strong><br><br>
+                    <small>${harvestCount === 4 ? t('بعد الحصاد الرابع تحتاج إزالة', 'After the fourth harvest, removal is needed') : ''}</small>
+                `;
+
+                const maxXp = Math.max(...xpValues);
+                els.xpBars.innerHTML = `<strong>${t('توزيع XP عبر الحصادات', 'XP Distribution Across Harvests')}</strong>`;
+                xpValues.forEach((xp, i) => {
+                    const percent = (xp / maxXp) * 100;
+                    els.xpBars.innerHTML += `
+                        <div class="bar-container">
+                            <div class="bar-label">${t('الحصاد', 'Harvest')} ${i + 1}: ${xp} ⭐</div>
+                            <div style="position:relative">
+                                <div class="bar" style="width:${percent}%"></div>
+                                <div class="bar-value">${xp} ⭐</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                els.xpBars.classList.add('visible');
+                els.xpBars.style.display = 'block';
+            }
+
+            els.result.classList.add('visible');
+            els.copyResult.style.display = 'inline';
+            els.copyResult.dataset.text = resultText;
+            els.copyResult.textContent = t('📋 نسخ النتيجة', '📋 Copy Result');
+        }
+
+        // === إظهار/إخفاء خيارات الأشجار ===
+        els.category.addEventListener('change', () => {
+            const cat = els.category.value;
+            els.extraOptions.classList.toggle('visible', cat === 'trees' || cat === 'bushes');
+            updatePlantSelect();
+            calculate();
+        });
+
+        els.harvestCount.addEventListener('input', calculate);
+
+        // === زر التوصيات ===
+        els.showRecs.addEventListener('click', () => {
+            showRecommendations();
+            els.showRecs.textContent = t('✅ التوصيات ظاهرة', '✅ Recommendations Shown');
+        });
+
+        // === تأثيرات الخلفية ===
+        function createStarField() {
+            for (let i = 0; i < 50; i++) createStar('starsLayer', 1, 2, 0.3, 0.8);
+            for (let i = 0; i < 30; i++) createStar('starsLayer2', 2, 5, 0.5, 1.2);
+        }
+
+        function createStar(layerId, minSize, maxSize, minOp, maxOp) {
+            const star = document.createElement('div');
+            star.className = 'star-particle';
+            const size = Math.random() * (maxSize - minSize) + minSize;
+            star.style.width = star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 200}vh`;
+            star.style.opacity = Math.random() * (maxOp - minOp) + minOp;
+            document.getElementById(layerId).appendChild(star);
+        }
+
+        function createColoredMeteors() {
+            setInterval(() => {
+                const m = document.createElement('div');
+                m.className = 'meteor-particle';
+                m.style.left = `${Math.random() * 100}%`;
+                m.style.animationDuration = `${3 + Math.random() * 6}s`;
+                m.style.animationDelay = `${Math.random() * 3}s`;
+                document.getElementById('meteorsLayer').appendChild(m);
+                setTimeout(() => m.remove(), 12000);
+            }, 2000);
+        }
+
+        function createFallingCoins() {
+            setInterval(() => {
+                const c = document.createElement('div');
+                c.className = 'coin-particle';
+                c.style.left = `${Math.random() * 100}%`;
+                c.style.animationDuration = `${8 + Math.random() * 10}s`;
+                c.style.animationDelay = `${Math.random() * 5}s`;
+                document.getElementById('coinsLayer').appendChild(c);
+                setTimeout(() => c.remove(), 20000);
+            }, 3000);
+        }
+
+        // === التهيئة ===
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('darkMode') === 'false') {
+                document.body.classList.add('light-mode');
+                els.toggleTheme.textContent = '☀️ تبديل الوضع';
+            }
+
+            if (currentLang === 'en') {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+            }
+            els.toggleLang.textContent = currentLang === 'ar' ? '🇺🇸 English' : '🇸🇦 عربي';
+
+            const categories = {
+                crops: t('المحاصيل', 'Crops'),
+                trees: t('الأشجار', 'Trees'),
+                bushes: t('الشجيرات', 'Bushes')
+            };
+            Object.entries(categories).forEach(([k, v]) => els.category.add(new Option(v, k)));
+
+            if (localStorage.getItem('lastCategory')) els.category.value = localStorage.getItem('lastCategory');
+            if (localStorage.getItem('lastQuantity')) els.quantity.value = localStorage.getItem('lastQuantity');
+            updatePlantSelect();
+            if (localStorage.getItem('lastPlant')) els.plantType.value = localStorage.getItem('lastPlant');
+
+            els.category.addEventListener('change', () => {
+                localStorage.setItem('lastCategory', els.category.value);
+                updatePlantSelect();
+                calculate();
+            });
+            els.plantType.addEventListener('change', () => {
+                localStorage.setItem('lastPlant', els.plantType.value);
+                calculate();
+            });
+            els.quantity.addEventListener('input', () => {
+                localStorage.setItem('lastQuantity', els.quantity.value);
+                calculate();
+            });
+            els.plantSearch.addEventListener('input', e => updatePlantSelect(e.target.value));
+            els.calcBtn.addEventListener('click', calculate);
+
+            els.toggleTheme.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                els.toggleTheme.textContent = isLight ? '☀️ تبديل الوضع' : '🌙 تبديل الوضع';
+                localStorage.setItem('darkMode', !isLight);
+            });
+
+            els.toggleLang.addEventListener('click', () => {
+                currentLang = currentLang === 'ar' ? 'en' : 'ar';
+                localStorage.setItem('lang', currentLang);
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                els.toggleLang.textContent = currentLang === 'ar' ? '🇺🇸 English' : '🇸🇦 عربي';
+                els.h1.textContent = currentLang === 'ar' 
+                    ? '🌌 حاسبة XP وأرباح Hay Day المتقدمة 🌠' 
+                    : '🌌 Advanced Hay Day XP & Profits Calculator 🌠';
+                document.querySelector('label[for="category"]').textContent = t('اختر الفئة:', 'Select Category:');
+                document.querySelector('label[for="plantType"]').textContent = t('اختر النوع:', 'Select Type:');
+                els.plantSearch.placeholder = t('ابحث عن نبات... (مثل قمح أو تفاح)', 'Search for plant... (e.g. wheat or apple)');
+                document.querySelector('label[for="quantity"]').textContent = t('عدد الحقول / الأشجار / الشجيرات:', 'Number of Fields / Trees / Bushes:');
+                els.quantity.placeholder = t('أدخل عددًا من 1 إلى 9999', 'Enter a number from 1 to 9999');
+                els.calcBtn.textContent = t('احسب الآن!', 'Calculate Now!');
+                els.note.innerHTML = t(
+                    'الأسعار قابلة للتغيير في اللعبة حسب التحديثات.<br>تحقق من Hay Day Wiki لأحدث الأسعار والتغييرات (البيانات محدثة حتى ديسمبر 2025 بدون تغييرات كبيرة في المحاصيل والأشجار).',
+                    'Prices may change in the game based on updates.<br>Check Hay Day Wiki for the latest prices and changes (data up to date as of December 2025 with no major changes to crops and trees).'
+                );
+                updatePlantSelect(els.plantSearch.value);
+                calculate();
+            });
+
+            els.copyResult.addEventListener('click', () => {
+                navigator.clipboard.writeText(els.copyResult.dataset.text).then(() => {
+                    els.copyResult.textContent = t('✅ تم النسخ!', '✅ Copied!');
+                    setTimeout(() => els.copyResult.textContent = t('📋 نسخ النتيجة', '📋 Copy Result'), 2000);
+                });
+            });
+
+            createStarField();
+            createColoredMeteors();
+            createFallingCoins();
+
+            calculate();
+
+            // إضافة كود العداد: يحسب الزيارة الأولى فقط، ويخزن على Firebase
+            // ملاحظة: استبدل بالمفاتيح الحقيقية لـ Firebase الخاص بك ليعمل بشكل صحيح
+            const firebaseConfig = {
+                apiKey: "AIzaSyDOCAbC123dEf45678gGeH-IJ-KlMnoPQR", // مثال: استبدل بمفتاحك الحقيقي
+                authDomain: "your-project-id.firebaseapp.com",
+                databaseURL: "https://your-project-id-default-rtdb.firebaseio.com",
+                projectId: "your-project-id",
+                storageBucket: "your-project-id.appspot.com",
+                messagingSenderId: "123456789012",
+                appId: "1:123456789012:web:abcdef123456"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+            const visitorRef = database.ref('visitorCount');
+
+            // دالة لتتبع الزائر
+            function trackVisitor() {
+                const hasVisited = localStorage.getItem('hasVisited');
+                if (!hasVisited) {
+                    visitorRef.transaction((currentCount) => {
+                        return (currentCount || 0) + 1;
+                    }).then(() => {
+                        localStorage.setItem('hasVisited', 'true');
+                        updateVisitorCount();
+                    }).catch((error) => {
+                        console.error('Error updating visitor count:', error);
+                    });
+                } else {
+                    updateVisitorCount();
+                }
+            }
+
+            // دالة لتحديث عرض العداد
+            function updateVisitorCount() {
+                visitorRef.once('value').then((snapshot) => {
+                    const count = snapshot.val() || 0;
+                    document.getElementById('visitorCount').textContent = count;
+                }).catch((error) => {
+                    console.error('Error fetching visitor count:', error);
+                    document.getElementById('visitorCount').textContent = 'غير متوفر';
+                });
+            }
+
+            // استدعاء عند التحميل
+            trackVisitor();
+        });
+    </script>
+</body>
+</html>
