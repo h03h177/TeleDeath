@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل هاي داي الكوني - Cosmic Hay Day Guide</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #001f3f, #003366, #001122);
+            color: #e0f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+            transition: background .5s ease
+        }
+        .light-mode {
+            background: linear-gradient(to bottom, #81d4fa, #b3e5fc, #e1f5fe);
+            color: #001f3f
+        }
+        header {
+            text-align: center;
+            padding: 20px 60px 20px 20px;
+            background: rgba(0, 20, 50, .9);
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            text-shadow: 0 0 15px #0077be, 0 0 25px #004b8d;
+            animation: glow 2s infinite alternate
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #0077be
+            }
+            to {
+                text-shadow: 0 0 20px #004b8d
+            }
+        }
+        #toggleNavBtn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #0077be, #004b8d);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 119, 190, .5);
+            z-index: 1001
+        }
+        #toggleNavBtn:hover {
+            transform: translateY(-50%) scale(1.1)
+        }
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            background: rgba(0, 20, 50, .5);
+            backdrop-filter: blur(25px);
+            padding: 10px;
+            width: 100%;
+            z-index: 999;
+            transition: transform .4s ease;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 119, 190, .3);
+        }
+        .top-nav.hidden {
+            transform: translateY(-100%)
+        }
+        .top-nav a {
+            margin: 8px 12px;
+            color: #81d4fa;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            position: relative;
+            transition: color .3s, transform .3s
+        }
+        .top-nav a:hover {
+            color: #fff;
+            transform: scale(1.1)
+        }
+        .top-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #fff, #0077be);
+            transition: width .3s;
+            transform: translateX(-50%)
+        }
+        .top-nav a:hover::after {
+            width: 80%
+        }
+        .sub-nav {
+            display: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            background: rgba(0, 20, 50, .5);
+            backdrop-filter: blur(25px);
+            padding: 15px;
+            width: 100%;
+            z-index: 998
+        }
+        .sub-nav a {
+            margin: 8px 20px;
+            color: #99ccff;
+            font-size: 1em
+        }
+        .sidebar {
+            background: rgba(0, 20, 50, .8);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, .3);
+            box-shadow: 0 0 20px rgba(0, 119, 190, .2)
+        }
+        .sidebar button {
+            width: 100%;
+            margin: 10px 0
+        }
+        main {
+            margin-top: 0;
+            padding: 20px
+        }
+        .section {
+            margin-bottom: 60px;
+            background: rgba(0, 20, 50, .45);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 119, 190, .2)
+        }
+        .accordion-item {
+            margin-bottom: 15px;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 15px;
+            overflow: hidden
+        }
+        .accordion-header {
+            padding: 18px;
+            cursor: pointer;
+            background: linear-gradient(45deg, rgba(0, 20, 50, .6), rgba(0, 20, 50, .8));
+            transition: background .3s
+        }
+        .accordion-header:hover {
+            background: linear-gradient(45deg, rgba(0, 20, 50, .8), rgba(0, 20, 50, 1))
+        }
+        .accordion-content {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, .08)
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px
+        }
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .05));
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .4);
+            position: relative;
+            overflow: hidden
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #0077be, 0 0 25px #004b8d
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #0077be, #004b8d, #001f3f);
+            color: white;
+            font-size: 1em;
+            margin: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .3)
+        }
+        button:hover {
+            background: linear-gradient(45deg, #004b8d, #0077be, #001f3f);
+            transform: scale(1.05)
+        }
+        #back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 1000
+        }
+        .shortcut-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 20, 50, .6);
+            backdrop-filter: blur(25px);
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 1000;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, .5)
+        }
+        .shortcut-bar a {
+            margin: 8px 12px;
+            color: #81d4fa;
+            font-size: .95em;
+            text-decoration: none
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #0077be, #004b8d);
+            z-index: 1001
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .7)
+        }
+        .modal-content {
+            background: linear-gradient(to bottom, #003366, #001f3f);
+            margin: 20% auto;
+            padding: 30px;
+            border: 2px solid #0077be;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 30px #0077be
+        }
+        .close {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer
+        }
+        .en {
+            display: none
+        }
+        .ar {
+            display: block
+        }
+        .english .en {
+            display: block
+        }
+        .english .ar {
+            display: none
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(0, 20, 50, .9);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+            z-index: 1;
+            border-radius: 10px;
+            right: 0
+        }
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block
+        }
+        .dropdown:hover .dropdown-content {
+            display: block
+        }
+        @media (min-width: 769px) {
+            header {
+                padding: 40px 60px 40px 20px
+            }
+            header h1 {
+                font-size: 3em
+            }
+            .top-nav {
+                padding: 20px
+            }
+            .top-nav a {
+                margin: 0 25px;
+                font-size: 1.2em
+            }
+            .sub-nav {
+                display: flex
+            }
+            .sidebar {
+                position: static;
+                left: 0;
+                top: 0;
+                width: 260px;
+                height: auto;
+                overflow-y: auto;
+                border-right: 2px solid rgba(255, 255, 255, .3)
+            }
+            main {
+                margin-left: 0;
+                padding-top: 0;
+                padding-right: 40px
+            }
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+            }
+            .shortcut-bar {
+                display: none
+            }
+        }
+
+        /* خلفية الصور الجديدة: كونية جذابة، ناعمة، مع تأثير نجوم صغيرة وتوهج قوي متناسق مع جو Hay Day الكوني */
+        .img-sparkle-wrapper {
+            position: relative;
+            display: block;
+            margin: 30px auto;
+            max-width: 100%;
+            background-size: cover, 200% 200%;
+            border-radius: 50px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(0, 119, 190, 0.8), inset 0 0 60px rgba(0, 119, 190, 0.3);
+            animation: cosmic-pulse 8s ease-in-out infinite alternate, starry-bg 20s linear infinite;
+            overflow: hidden;
+            border: 3px solid rgba(0, 119, 190, 0.4);
+        }
+        @keyframes cosmic-pulse {
+            0% { box-shadow: 0 0 40px rgba(0, 119, 190, 0.8), inset 0 0 60px rgba(0, 119, 190, 0.3); }
+            100% { box-shadow: 0 0 60px rgba(0, 119, 190, 1), inset 0 0 80px rgba(0, 119, 190, 0.5); }
+        }
+        @keyframes starry-bg {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        /* تحسين تأثير النجوم اللامعة داخل الصور */
+        .sparkle {
+            position: absolute;
+            font-size: 30px;
+            color: #ffd700;
+            pointer-events: none;
+            animation: twinkle 3.5s infinite ease-in-out;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 10px #ffffff;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(0deg); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.8) rotate(180deg); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(360deg); }
+        }
+
+        /* نجوم وماس متساقط في الفضاء (أكثر وأجمل) */
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .falling {
+            position: fixed;
+            top: -50px;
+            font-size: 26px;
+            color: #ffd700;
+            pointer-events: none;
+            z-index: 997;
+            animation: fall linear infinite;
+        }
+        .falling.diamond {
+            color: #b9f2ff;
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body class="arabic">
+    <div class="progress-bar" id="progress"></div>
+
+    <!-- نجوم وماس متساقط (أكثر كثافة وتنوع) -->
+    <div class="falling" style="left: 5%; animation-duration: 14s; animation-delay: 0s;">⭐</div>
+    <div class="falling diamond" style="left: 15%; animation-duration: 18s; animation-delay: 1s;">💎</div>
+    <div class="falling" style="left: 25%; animation-duration: 12s; animation-delay: 2s;">✨</div>
+    <div class="falling" style="left: 35%; animation-duration: 16s; animation-delay: 3s;">⭐</div>
+    <div class="falling diamond" style="left: 45%; animation-duration: 20s; animation-delay: 4s;">💎</div>
+    <div class="falling" style="left: 55%; animation-duration: 13s; animation-delay: 5s;">✨</div>
+    <div class="falling" style="left: 65%; animation-duration: 17s; animation-delay: 6s;">⭐</div>
+    <div class="falling diamond" style="left: 75%; animation-duration: 15s; animation-delay: 7s;">💎</div>
+    <div class="falling" style="left: 85%; animation-duration: 19s; animation-delay: 8s;">✨</div>
+    <div class="falling" style="left: 95%; animation-duration: 11s; animation-delay: 9s;">⭐</div>
+
+    <header>
+        <button id="toggleNavBtn" title="إخفاء/إظهار القائمة">☰</button>
+        <h1 class="en">Cosmic Hay Day Guide 🌌🚀</h1>
+        <h1 class="ar">دليل هاي داي الكوني 🌌🚀</h1>
+    </header>
+    <nav class="top-nav" id="topNav">
+        <a href="#farm">المزرعة - Farm 🌾</a>
+        <a href="#machines">الآلات - Machines 🚜</a>
+        <a href="#features">الميزات - Features ✨</a>
+        <a href="#resources">الموارد - Resources ⛏️</a>
+        <a href="#events">الأحداث - Events 🎉</a>
+        <a href="#tips">نصائح - Tips 💡</a>
+        <a href="#community">المجتمع - Community 👥</a>
+    </nav>
+    <nav class="sub-nav">
+        <a href="#news">أخبار - News 📰</a>
+        <a href="#guide">دليل اللعبة - Game Guide 📖</a>
+        <a href="#help">مساعدة - Help ❓</a>
+        <a href="#forum">منتدى - Forum 💬</a>
+        <a href="#wiki">ويكي - Wiki 📚</a>
+        <a href="#blog">مدونة - Blog ✍️</a>
+        <a href="#download">تحميل - Download 📥</a>
+        <a href="#updates">تحديثات - Updates 🔄</a>
+        <a href="#strategies">استراتيجيات - Strategies 🧠</a>
+    </nav>
+    <aside class="sidebar">
+        <button onclick="toggleLanguage()">تبديل اللغة - Toggle Language 🌐</button>
+        <button onclick="toggleMode()">تبديل الوضع - Toggle Mode 🌙</button>
+        <button onclick="openModal('searchModal')">بحث - Search 🔍</button>
+    </aside>
+    <main>
+        <section id="farm" class="section">
+            <h2 class="en">Farm Overview 🌾</h2>
+            <h2 class="ar">نظرة عامة على المزرعة 🌾</h2>
+            <p class="en">Explore your cosmic farm with advanced features and interstellar adventures! 🚀🌌</p>
+            <p class="ar">اكتشف مزرعتك الكونية مع ميزات متقدمة ومغامرات بين النجوم! 🚀🌌</p>
+        </section>
+        <section id="machines" class="section">
+            <h2 class="en">Machines 🚜🔧</h2>
+            <h2 class="ar">الآلات 🚜🔧</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Bakery 🍞</h3>
+                        <h3 class="ar">المخبز 🍞</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 2, Price: 20 coins, Build time: 10 sec, XP: 3, Produces baked goods like bread, cookies, muffins. Start your farming journey with delicious treats! 🌟🥖😋</p>
+                        <p class="ar">مستوى الفتح: 2، السعر: 20 عملة، وقت البناء: 10 ثانية، XP: 3، ينتج مخبوزات مثل الخبز والكوكيز والمافن. ابدأ رحلتك الزراعية بوجبات لذيذة! 🌟🥖😋</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 140, 0, 0.5), rgba(139, 69, 19, 0.9)), linear-gradient(135deg, rgba(255, 193, 7, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/4/47/Bakery.png" alt="Hay Day Bakery">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍞</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥖</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍪</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🧁</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Feed Mill 🐔</h3>
+                        <h3 class="ar">مطحنة العلف 🐔</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 3, Price: 5 coins (1st), 3,200 coins (2nd), Build time: 40 sec, XP: 4, Produces animal feed. Keep your animals happy and productive! 🐄💕🥰</p>
+                        <p class="ar">مستوى الفتح: 3، السعر: 5 عملة (الأولى)، 3200 عملة (الثانية)، وقت البناء: 40 ثانية، XP: 4، ينتج علف الحيوانات. احتفظ بحيواناتك سعيدة ومنتجة! 🐄💕🥰</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(139, 206, 86, 0.5), rgba(34, 139, 34, 0.9)), linear-gradient(135deg, rgba(144, 238, 144, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/d/db/Feed_Mill.png" alt="Hay Day Feed Mill">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🌾</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🐔</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🐄</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🐷</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥚</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Dairy 🥛</h3>
+                        <h3 class="ar">مصنع الألبان 🥛</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 6, Price: 50 coins, Build time: 2 h, XP: 8, Produces dairy products like milk, cheese, butter. Creamy goodness for your farm! 🧀✨🍦</p>
+                        <p class="ar">مستوى الفتح: 6، السعر: 50 عملة، وقت البناء: 2 ساعة، XP: 8، ينتج منتجات ألبان مثل الحليب والجبن والزبدة. طيبة كريمية لمزرعتك! 🧀✨🍦</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, rgba(135, 206, 235, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/e/e3/Dairy.png" alt="Hay Day Dairy">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥛</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🧀</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧈</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍦</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥚</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Sugar Mill 🍬</h3>
+                        <h3 class="ar">مطحنة السكر 🍬</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 7, Price: 350 coins (1st), 200,000 coins (2nd), Build time: 6 h, XP: 13, Produces sugar from sugar cane. 🍭😍</p>
+                        <p class="ar">مستوى الفتح: 7، السعر: 350 عملة (الأولى)، 200000 عملة (الثانية)، وقت البناء: 6 ساعات، XP: 13، ينتج السكر من قصب السكر. 🍭😍</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 105, 180, 0.5), rgba(255, 192, 203, 0.9)), linear-gradient(135deg, rgba(255, 182, 193, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/8/8a/Sugar_Mill.png" alt="Hay Day Sugar Mill">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍬</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍭</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍡</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🧁</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍰</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Popcorn Pot 🍿</h3>
+                        <h3 class="ar">وعاء الفشار 🍿</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 8, Price: 650 coins, Build time: 8 h, XP: 14, Produces popcorn. 🎥🍿😋</p>
+                        <p class="ar">مستوى الفتح: 8، السعر: 650 عملة، وقت البناء: 8 ساعات، XP: 14، ينتج الفشار. 🎥🍿😋</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 165, 0, 0.9)), linear-gradient(135deg, rgba(255, 223, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/3/3c/Popcorn_Pot.png" alt="Hay Day Popcorn Pot">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍿</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🌽</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🎥</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍿</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">✨</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">BBQ Grill 🍖</h3>
+                        <h3 class="ar">شواية الباربيكيو 🍖</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 9, Price: 730 coins, Build time: 8 h, XP: 14, Produces grilled meats and BBQ items. 🔥🍗🥩</p>
+                        <p class="ar">مستوى الفتح: 9، السعر: 730 عملة، وقت البناء: 8 ساعات، XP: 14، ينتج اللحوم المشوية وعناصر الباربيكيو. 🔥🍗🥩</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 69, 0, 0.5), rgba(139, 0, 0, 0.9)), linear-gradient(135deg, rgba(255, 99, 71, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/9/9b/BBQ_Grill.png" alt="Hay Day BBQ Grill">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍖</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🔥</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍗</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥩</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍔</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Pie Oven 🥧</h3>
+                        <h3 class="ar">فرن الفطائر 🥧</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 14, Price: 2,200 coins, Build time: 12 h, XP: 17, Produces pies. 🍎🥧😋</p>
+                        <p class="ar">مستوى الفتح: 14، السعر: 2200 عملة، وقت البناء: 12 ساعة، XP: 17، ينتج الفطائر. 🍎🥧😋</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(220, 20, 60, 0.5), rgba(139, 0, 0, 0.9)), linear-gradient(135deg, rgba(255, 105, 180, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/e/eb/Pie_Oven.png" alt="Hay Day Pie Oven">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥧</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍎</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍒</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🫐</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍓</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Loom 🧵</h3>
+                        <h3 class="ar">النول 🧵</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 17, Price: 3,200 coins, Build time: 1 d, XP: 19, Produces fabrics and textiles. 🧶👗</p>
+                        <p class="ar">مستوى الفتح: 17، السعر: 3200 عملة، وقت البناء: 1 يوم، XP: 19، ينتج الأقمشة والمنسوجات. 🧶👗</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(147, 112, 219, 0.5), rgba(75, 0, 130, 0.9)), linear-gradient(135deg, rgba(186, 85, 211, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/3/3b/Loom.png" alt="Hay Day Loom">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🧵</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🧶</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">👚</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">👕</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧣</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Sewing Machine 🪡</h3>
+                        <h3 class="ar">ماكينة الخياطة 🪡</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 19, Price: 4,500 coins, Build time: 20 h, XP: 19, Produces sewn items like clothes and bags. 👕👜</p>
+                        <p class="ar">مستوى الفتح: 19، السعر: 4500 عملة، وقت البناء: 20 ساعة، XP: 19، ينتج العناصر المخيطة مثل الملابس والحقائب. 👕👜</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 20, 147, 0.5), rgba(199, 21, 133, 0.9)), linear-gradient(135deg, rgba(255, 105, 180, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/e/e0/Sewing_Machine.png" alt="Hay Day Sewing Machine">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🪡</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">👗</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">👜</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">👚</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧵</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Cake Oven 🍰</h3>
+                        <h3 class="ar">فرن الكيك 🍰</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 21, Price: 12,100 coins, Build time: 1 d, XP: 24, Produces cakes. 🎂🥳</p>
+                        <p class="ar">مستوى الفتح: 21، السعر: 12100 عملة، وقت البناء: 1 يوم، XP: 24، ينتج الكيك. 🎂🥳</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 182, 193, 0.5), rgba(255, 105, 180, 0.9)), linear-gradient(135deg, rgba(255, 192, 203, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/9/95/Cake_Oven.png" alt="Hay Day Cake Oven">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍰</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🎂</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧁</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥳</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🎈</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Smelter 🔥</h3>
+                        <h3 class="ar">الصهر 🔥</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 24, Price: 12,500 coins (1st) up to 50,500 coins (5th), Build time: 18 h, XP: 21, Produces smelted metals and alloys. ⚒️🔥</p>
+                        <p class="ar">مستوى الفتح: 24، السعر: 12500 عملة (الأول) حتى 50500 عملة (الخامس)، وقت البناء: 18 ساعة، XP: 21، ينتج المعادن المصهورة والسبائك. ⚒️🔥</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 69, 0, 0.5), rgba(178, 34, 34, 0.9)), linear-gradient(135deg, rgba(220, 20, 60, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/4/45/Smelter.png" alt="Hay Day Smelter">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🔥</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">⚒️</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🪙</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">⛏️</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">💎</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Juice Press 🧃</h3>
+                        <h3 class="ar">معصرة العصائر 🧃</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 26, Price: 31,000 coins, Build time: 1 d 8 h, XP: 27, Produces fruit juices. 🍎🍹</p>
+                        <p class="ar">مستوى الفتح: 26، السعر: 31000 عملة، وقت البناء: 1 يوم 8 ساعات، XP: 27، ينتج عصائر الفواكه. 🍎🍹</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 165, 0, 0.5), rgba(255, 140, 0, 0.9)), linear-gradient(135deg, rgba(255, 215, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/9/9c/Juice_Press.png" alt="Hay Day Juice Press">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🧃</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍎</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍊</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍒</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍹</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Ice Cream Maker 🍨</h3>
+                        <h3 class="ar">صانع الآيس كريم 🍨</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 29, Price: 38,000 coins, Build time: 1 d 7 h, XP: 27, Produces ice cream. 🍦❄️</p>
+                        <p class="ar">مستوى الفتح: 29، السعر: 38000 عملة، وقت البناء: 1 يوم 7 ساعات، XP: 27، ينتج الآيس كريم. 🍦❄️</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5), rgba(135, 206, 250, 0.9)), linear-gradient(135deg, rgba(176, 224, 230, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/c/cf/Ice_Cream_Maker.png" alt="Hay Day Ice Cream Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍨</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍦</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">❄️</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍧</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥶</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Jam Maker 🍓</h3>
+                        <h3 class="ar">صانع المربى 🍓</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 35, Price: 59,000 coins, Build time: 1 d 12 h, XP: 28, Produces jams and spreads. 🍓🥄</p>
+                        <p class="ar">مستوى الفتح: 35، السعر: 59000 عملة، وقت البناء: 1 يوم 12 ساعة، XP: 28، ينتج المربيات والمدهونات. 🍓🥄</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(220, 20, 60, 0.5), rgba(255, 0, 0, 0.9)), linear-gradient(135deg, rgba(255, 105, 180, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/e/e5/Jam_Maker.png" alt="Hay Day Jam Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍓</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍒</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🫐</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥄</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍯</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Jeweler 💎</h3>
+                        <h3 class="ar">صائغ المجوهرات 💎</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 38, Price: 68,000 coins, Build time: 1 d 12 h, XP: 28, Produces jewelry items. 💍✨</p>
+                        <p class="ar">مستوى الفتح: 38، السعر: 68000 عملة، وقت البناء: 1 يوم 12 ساعة، XP: 28، ينتج عناصر المجوهرات. 💍✨</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(0, 191, 255, 0.5), rgba(0, 0, 139, 0.9)), linear-gradient(135deg, rgba(70, 130, 180, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/c/c0/Jeweler.png" alt="Hay Day Jeweler">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">💎</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">💍</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">📿</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">⌚</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">✨</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Honey Extractor 🍯</h3>
+                        <h3 class="ar">مستخرج العسل 🍯</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 39, Price: 35,000 coins, Build time: 1 d, XP: 24, Produces honey and related products. 🐝🍯</p>
+                        <p class="ar">مستوى الفتح: 39، السعر: 35000 عملة، وقت البناء: 1 يوم، XP: 24، ينتج العسل والمنتجات ذات الصلة. 🐝🍯</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 165, 0, 0.9)), linear-gradient(135deg, rgba(255, 223, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/2/20/Honey_Extractor.png" alt="Hay Day Honey Extractor">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍯</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🐝</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🌼</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🪷</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">✨</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Coffee Kiosk ☕</h3>
+                        <h3 class="ar">كشك القهوة ☕</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 42, Price: 75,000 coins, Build time: 1 d 11 h, XP: 35, Produces coffee drinks. ☕🥤</p>
+                        <p class="ar">مستوى الفتح: 42، السعر: 75000 عملة، وقت البناء: 1 يوم 11 ساعة، XP: 35، ينتج مشروبات القهوة. ☕🥤</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(139, 69, 19, 0.5), rgba(101, 67, 33, 0.9)), linear-gradient(135deg, rgba(160, 82, 45, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/9/92/Coffee_Kiosk.png" alt="Hay Day Coffee Kiosk">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">☕</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥤</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍫</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🫘</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌰</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Soup Kitchen 🍲</h3>
+                        <h3 class="ar">مطبخ الحساء 🍲</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 46, Price: 115,000 coins, Build time: 1 d 12 h, XP: 28, Produces soups and broths. 🥄🍲</p>
+                        <p class="ar">مستوى الفتح: 46، السعر: 115000 عملة، وقت البناء: 1 يوم 12 ساعة، XP: 28، ينتج الحساء والمرق. 🥄🍲</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 99, 71, 0.5), rgba(255, 69, 0, 0.9)), linear-gradient(135deg, rgba(255, 140, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/7/7e/Soup_Kitchen.png" alt="Hay Day Soup Kitchen">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍲</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥄</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🥕</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🧅</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌶️</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Candle Maker 🕯️</h3>
+                        <h3 class="ar">صانع الشموع 🕯️</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 48, Price: 118,000 coins, Build time: 1 d 14 h, XP: 24, Produces candles. 🕯️✨</p>
+                        <p class="ar">مستوى الفتح: 48، السعر: 118000 عملة، وقت البناء: 1 يوم 14 ساعة، XP: 24، ينتج الشموع. 🕯️✨</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 140, 0, 0.9)), linear-gradient(135deg, rgba(255, 165, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/5/5c/Candle_Maker.png" alt="Hay Day Candle Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🕯️</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">✨</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🕯️</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🌙</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">💫</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Flower Shop 🌸</h3>
+                        <h3 class="ar">متجر الزهور 🌸</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 49, Price: 120,000 coins, Build time: 1 d 15 h, XP: 30, Produces floral arrangements and bouquets. 🌺💐</p>
+                        <p class="ar">مستوى الفتح: 49، السعر: 120000 عملة، وقت البناء: 1 يوم 15 ساعة، XP: 30، ينتج ترتيبات الزهور والباقات. 🌺💐</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 105, 180, 0.5), rgba(255, 20, 147, 0.9)), linear-gradient(135deg, rgba(255, 182, 193, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/a/a6/Flower_Shop.png" alt="Hay Day Flower Shop">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🌸</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🌺</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">💐</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🌹</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌷</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Candy Machine 🍭</h3>
+                        <h3 class="ar">آلة الحلوى 🍭</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 51, Price: 120,000 coins, Build time: 1 d, XP: 27, Produces candies. 🍬😋</p>
+                        <p class="ar">مستوى الفتح: 51، السعر: 120000 عملة، وقت البناء: 1 يوم، XP: 27، ينتج الحلويات. 🍬😋</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 105, 180, 0.5), rgba(255, 192, 203, 0.9)), linear-gradient(135deg, rgba(255, 20, 147, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/2/2e/Candy_Machine.png" alt="Hay Day Candy Machine">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍭</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍬</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍫</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🧁</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">😋</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Sauce Maker 🥫</h3>
+                        <h3 class="ar">صانع الصلصات 🥫</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 54, Price: 135,000 coins, Build time: 1 d 16 h, XP: 30, Produces sauces and condiments. 🌶️🥫</p>
+                        <p class="ar">مستوى الفتح: 54، السعر: 135000 عملة، وقت البناء: 1 يوم 16 ساعة، XP: 30، ينتج الصلصات والتوابل. 🌶️🥫</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 0, 0, 0.5), rgba(178, 34, 34, 0.9)), linear-gradient(135deg, rgba(220, 20, 60, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/8/86/Sauce_Maker.png" alt="Hay Day Sauce Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥫</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🌶️</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧂</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥬</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🫙</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Sushi Bar 🍣</h3>
+                        <h3 class="ar">بار السوشي 🍣</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 56, Price: 150,000 coins, Build time: 1 d 20 h, XP: 38, Produces sushi dishes. 🍱🍣</p>
+                        <p class="ar">مستوى الفتح: 56، السعر: 150000 عملة، وقت البناء: 1 يوم 20 ساعة، XP: 38، ينتج أطباق السوشي. 🍱🍣</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 99, 71, 0.5), rgba(255, 69, 0, 0.9)), linear-gradient(135deg, rgba(255, 140, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/b/b3/Sushi_Bar.png" alt="Hay Day Sushi Bar">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍣</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍱</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍤</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🐟</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🦐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Salad Bar 🥗</h3>
+                        <h3 class="ar">بار السلطة 🥗</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 58, Price: 165,000 coins, Build time: 2 d, XP: 32, Produces salads. 🥬🥗</p>
+                        <p class="ar">مستوى الفتح: 58، السعر: 165000 عملة، وقت البناء: 2 أيام، XP: 32، ينتج السلطات. 🥬🥗</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(50, 205, 50, 0.5), rgba(0, 128, 0, 0.9)), linear-gradient(135deg, rgba(144, 238, 144, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/a/a5/Salad_Bar.png" alt="Hay Day Salad Bar">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥗</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥬</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🥕</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍅</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧀</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Sandwich Bar 🥪</h3>
+                        <h3 class="ar">بار الساندويتش 🥪</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 61, Price: 180,000 coins, Build time: 2 d 4 h, XP: 34, Produces sandwiches. 🥖🥪</p>
+                        <p class="ar">مستوى الفتح: 61، السعر: 180000 عملة، وقت البناء: 2 أيام 4 ساعات، XP: 34، ينتج الساندويتشات. 🥖🥪</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 165, 0, 0.9)), linear-gradient(135deg, rgba(255, 223, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/b/b0/Sandwich_Bar.png" alt="Hay Day Sandwich Bar">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥪</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥖</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧀</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥬</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍅</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Smoothie Mixer 🥤</h3>
+                        <h3 class="ar">خلاط السموعي 🥤</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 64, Price: 220,000 coins, Build time: 3 d, XP: 39, Produces smoothies. 🍌🥤</p>
+                        <p class="ar">مستوى الفتح: 64، السعر: 220000 عملة، وقت البناء: 3 أيام، XP: 39، ينتج السموعي. 🍌🥤</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 255, 0, 0.5), rgba(255, 215, 0, 0.9)), linear-gradient(135deg, rgba(255, 255, 102, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/1/12/Smoothie_Mixer.png" alt="Hay Day Smoothie Mixer">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥤</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍌</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍓</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥭</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍍</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Pasta Maker 🍝</h3>
+                        <h3 class="ar">صانع المعكرونة 🍝</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 67, Price: 410,000 coins, Build time: 3 d 7 h, XP: 43, Produces pasta. 🍝🍴</p>
+                        <p class="ar">مستوى الفتح: 67، السعر: 410000 عملة، وقت البناء: 3 أيام 7 ساعات، XP: 43، ينتج المعكرونة. 🍝🍴</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 255, 0, 0.5), rgba(255, 165, 0, 0.9)), linear-gradient(135deg, rgba(255, 215, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/3/38/Pasta_Maker.png" alt="Hay Day Pasta Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍝</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍴</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧀</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍅</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌿</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Essential Oils Lab 🛁</h3>
+                        <h3 class="ar">مختبر الزيوت الأساسية 🛁</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 68, Price: 85,000 coins, Build time: 3 d 7 h, XP: 44, Produces essential oils. 🌿🛀</p>
+                        <p class="ar">مستوى الفتح: 68، السعر: 85000 عملة، وقت البناء: 3 أيام 7 ساعات، XP: 44، ينتج الزيوت الأساسية. 🌿🛀</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(144, 238, 144, 0.5), rgba(34, 139, 34, 0.9)), linear-gradient(135deg, rgba(50, 205, 50, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/a/a7/Essential_Oils_Lab.png" alt="Hay Day Essential Oils Lab">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🛁</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🌿</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧴</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🌸</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🫙</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Wok Kitchen 🍲</h3>
+                        <h3 class="ar">مطبخ الووك 🍲</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 69, Price: 350,000 coins, Build time: 3 d 8 h, XP: 41, Produces wok-cooked dishes. 🍲🥘</p>
+                        <p class="ar">مستوى الفتح: 69، السعر: 350000 عملة، وقت البناء: 3 أيام 8 ساعات، XP: 41، ينتج أطباق مطبوخة في الووك. 🍲🥘</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 140, 0, 0.5), rgba(255, 69, 0, 0.9)), linear-gradient(135deg, rgba(255, 99, 71, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/c/c7/Wok_Kitchen.png" alt="Hay Day Wok Kitchen">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍲</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥘</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🔥</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥬</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧄</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Hat Maker 🧢</h3>
+                        <h3 class="ar">صانع القبعات 🧢</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 70, Price: 260,000 coins, Build time: 3 d 3 h, XP: 40, Produces hats. 🎩🧢</p>
+                        <p class="ar">مستوى الفتح: 70، السعر: 260000 عملة، وقت البناء: 3 أيام 3 ساعات، XP: 40، ينتج القبعات. 🎩🧢</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(75, 0, 130, 0.5), rgba(138, 43, 226, 0.9)), linear-gradient(135deg, rgba(147, 112, 219, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/e/ea/Hat_Maker.png" alt="Hay Day Hat Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🧢</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🎩</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">👒</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🪡</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧵</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Pasta Kitchen 🍝</h3>
+                        <h3 class="ar">مطبخ المعكرونة 🍝</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 72, Price: 550,000 coins, Build time: 3 d 12 h, XP: 42, Produces pasta dishes. 🍝🍲</p>
+                        <p class="ar">مستوى الفتح: 72، السعر: 550000 عملة، وقت البناء: 3 أيام 12 ساعة، XP: 42، ينتج أطباق المعكرونة. 🍝🍲</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 99, 71, 0.5), rgba(255, 69, 0, 0.9)), linear-gradient(135deg, rgba(255, 140, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/6/6b/Pasta_Kitchen.png" alt="Hay Day Pasta Kitchen">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍝</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍲</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧀</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍅</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌿</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Hot Dog Stand 🌭</h3>
+                        <h3 class="ar">كشك الهوت دوغ 🌭</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 75, Price: 650,000 coins, Build time: 3 d 16 h, XP: 41, Produces hot dogs. 🌭🍟</p>
+                        <p class="ar">مستوى الفتح: 75، السعر: 650000 عملة، وقت البناء: 3 أيام 16 ساعة، XP: 41، ينتج الهوت دوغ. 🌭🍟</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 140, 0, 0.5), rgba(255, 69, 0, 0.9)), linear-gradient(135deg, rgba(255, 165, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/b/b7/Hot_Dog_Stand.png" alt="Hay Day Hot Dog Stand">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🌭</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍟</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🥖</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🧀</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥬</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Donut Maker 🍩</h3>
+                        <h3 class="ar">صانع الدونات 🍩</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 76, Price: 680,000 coins, Build time: 3 d 18 h, XP: 42, Produces donuts. 🍩☕</p>
+                        <p class="ar">مستوى الفتح: 76، السعر: 680000 عملة، وقت البناء: 3 أيام 18 ساعة، XP: 42، ينتج الدونات. 🍩☕</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 105, 180, 0.5), rgba(255, 20, 147, 0.9)), linear-gradient(135deg, rgba(255, 182, 193, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/a/ac/Donut_Maker.png" alt="Hay Day Donut Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍩</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">☕</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧁</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍓</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍫</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Taco Kitchen 🌮</h3>
+                        <h3 class="ar">مطبخ التاكو 🌮</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 77, Price: 700,000 coins, Build time: 3 d 18 h, XP: 43, Produces tacos. 🌮🥑</p>
+                        <p class="ar">مستوى الفتح: 77، السعر: 700000 عملة، وقت البناء: 3 أيام 18 ساعة، XP: 43، ينتج التاكو. 🌮🥑</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 165, 0, 0.5), rgba(255, 140, 0, 0.9)), linear-gradient(135deg, rgba(255, 215, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/6/65/Taco_Kitchen.png" alt="Hay Day Taco Kitchen">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🌮</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥑</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🌶️</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🧀</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥬</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Omelet Station 🍳</h3>
+                        <h3 class="ar">محطة الأومليت 🍳</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 77, Price: 600,000 coins, Build time: 3 d 8 h, XP: 41, Produces omelets. 🥚🍳</p>
+                        <p class="ar">مستوى الفتح: 77، السعر: 600000 عملة، وقت البناء: 3 أيام 8 ساعات، XP: 41، ينتج الأومليت. 🥚🍳</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 165, 0, 0.9)), linear-gradient(135deg, rgba(255, 223, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/7/7d/Omelet_Station.png" alt="Hay Day Omelet Station">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍳</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥚</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧀</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥬</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌶️</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Tea Stand 🍵</h3>
+                        <h3 class="ar">كشك الشاي 🍵</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 80, Price: 750,000 coins, Build time: 3 d 23 h, XP: 44, Produces tea drinks. 🍵🌿</p>
+                        <p class="ar">مستوى الفتح: 80، السعر: 750000 عملة، وقت البناء: 3 أيام 23 ساعة، XP: 44، ينتج مشروبات الشاي. 🍵🌿</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(50, 205, 50, 0.5), rgba(34, 139, 34, 0.9)), linear-gradient(135deg, rgba(144, 238, 144, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/7/74/Tea_Stand.png" alt="Hay Day Tea Stand">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍵</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🌿</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">☕</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🫖</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍯</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Fondue Pot 🫕</h3>
+                        <h3 class="ar">وعاء الفوندو 🫕</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 81, Price: 800,000 coins, Build time: 4 d, XP: 44, Produces fondue dishes. 🧀🫕</p>
+                        <p class="ar">مستوى الفتح: 81، السعر: 800000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج أطباق الفوندو. 🧀🫕</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 140, 0, 0.9)), linear-gradient(135deg, rgba(255, 165, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/1/10/Fondue_Pot.png" alt="Hay Day Fondue Pot">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🫕</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🧀</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍫</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥖</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🔥</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Bath Kiosk 🛀</h3>
+                        <h3 class="ar">كشك الحمام 🛀</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 84, Price: 850,000 coins, Build time: 4 d, XP: 44, Produces bath products. 🛁🧼</p>
+                        <p class="ar">مستوى الفتح: 84، السعر: 850000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج منتجات الحمام. 🛁🧼</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5), rgba(135, 206, 235, 0.9)), linear-gradient(135deg, rgba(176, 224, 230, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/1/14/Bath_Kiosk.png" alt="Hay Day Bath Kiosk">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🛀</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🛁</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧼</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🫧</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌸</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Deep Fryer 🍟</h3>
+                        <h3 class="ar">القلي العميق 🍟</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 87, Price: 900,000 coins, Build time: 3 d 23 h, XP: 44, Produces fried foods. 🍟🔥</p>
+                        <p class="ar">مستوى الفتح: 87، السعر: 900000 عملة، وقت البناء: 3 أيام 23 ساعة، XP: 44، ينتج الأطعمة المقلية. 🍟🔥</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 140, 0, 0.9)), linear-gradient(135deg, rgba(255, 165, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/0/05/Deep_Fryer.png" alt="Hay Day Deep Fryer">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍟</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🔥</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🌽</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍗</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥔</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Preservation Station 🥒</h3>
+                        <h3 class="ar">محطة الحفظ 🥒</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 91, Price: 950,000 coins, Build time: 4 d, XP: 44, Produces preserved foods. 🥒🥫</p>
+                        <p class="ar">مستوى الفتح: 91، السعر: 950000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج الأطعمة المحفوظة. 🥒🥫</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(50, 205, 50, 0.5), rgba(34, 139, 34, 0.9)), linear-gradient(135deg, rgba(144, 238, 144, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/5/5d/Preservation_Station.png" alt="Hay Day Preservation Station">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥒</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥫</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍅</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🫙</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧂</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Pottery Studio 🏺</h3>
+                        <h3 class="ar">استوديو الفخار 🏺</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 94, Price: 1,000,000 coins, Build time: 4 d, XP: 46, Produces pottery items. 🏺🖌️</p>
+                        <p class="ar">مستوى الفتح: 94، السعر: 1000000 عملة، وقت البناء: 4 أيام، XP: 46، ينتج عناصر الفخار. 🏺🖌️</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 140, 0, 0.5), rgba(139, 69, 19, 0.9)), linear-gradient(135deg, rgba(210, 105, 30, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/e/e3/Pottery_Studio.png" alt="Hay Day Pottery Studio">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🏺</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🖌️</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🎨</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🪞</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🪴</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Fudge Shop 🍫</h3>
+                        <h3 class="ar">متجر الفادج 🍫</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 99, Price: 1,050,000 coins, Build time: 4 d, XP: 44, Produces fudge. 🍫😋</p>
+                        <p class="ar">مستوى الفتح: 99، السعر: 1050000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج الفادج. 🍫😋</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(139, 69, 19, 0.5), rgba(101, 67, 33, 0.9)), linear-gradient(135deg, rgba(160, 82, 45, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/2/27/Fudge_Shop.png" alt="Hay Day Fudge Shop">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍫</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">😋</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍬</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🧈</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥛</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Yogurt Maker 🥛</h3>
+                        <h3 class="ar">صانع الزبادي 🥛</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 103, Price: 1,100,000 coins, Build time: 4 d, XP: 44, Produces yogurt. 🥛🥄</p>
+                        <p class="ar">مستوى الفتح: 103، السعر: 1100000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج الزبادي. 🥛🥄</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, rgba(135, 206, 235, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/5/55/Yogurt_Maker.png" alt="Hay Day Yogurt Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥛</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥄</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍓</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🫐</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍯</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Stew Pot 🍲</h3>
+                        <h3 class="ar">وعاء اليخنة 🍲</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 106, Price: 1,150,000 coins, Build time: 4 d, XP: 44, Produces stews. 🍲🥘</p>
+                        <p class="ar">مستوى الفتح: 106، السعر: 1150000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج اليخنات. 🍲🥘</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 140, 0, 0.5), rgba(255, 69, 0, 0.9)), linear-gradient(135deg, rgba(255, 99, 71, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/9/9f/Stew_Pot.png" alt="Hay Day Stew Pot">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🍲</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥘</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🥕</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥔</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧅</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Cupcake Maker 🧁</h3>
+                        <h3 class="ar">صانع الكب كيك 🧁</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 109, Price: 1,200,000 coins, Build time: 4 d, XP: 44, Produces cupcakes. 🧁🎂</p>
+                        <p class="ar">مستوى الفتح: 109، السعر: 1200000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج الكب كيك. 🧁🎂</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 105, 180, 0.5), rgba(255, 20, 147, 0.9)), linear-gradient(135deg, rgba(255, 182, 193, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/9/94/Cupcake_Maker.png" alt="Hay Day Cupcake Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🧁</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🎂</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍓</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍫</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🥳</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Perfumerie 🌹</h3>
+                        <h3 class="ar">متجر العطور 🌹</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 110, Price: 1,000,000 coins, Build time: 4 d, XP: 44, Produces perfumes. 🌹💐</p>
+                        <p class="ar">مستوى الفتح: 110، السعر: 1000000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج العطور. 🌹💐</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 20, 147, 0.5), rgba(199, 21, 133, 0.9)), linear-gradient(135deg, rgba(255, 105, 180, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/5/54/Perfumerie.png" alt="Hay Day Perfumerie">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🌹</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">💐</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🧴</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🌸</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">✨</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Waffle Maker 🧇</h3>
+                        <h3 class="ar">صانع الوافل 🧇</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 114, Price: 1,250,000 coins, Build time: 4 d, XP: 44, Produces waffles. 🧇🥞</p>
+                        <p class="ar">مستوى الفتح: 114، السعر: 1250000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج الوافل. 🧇🥞</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5), rgba(255, 140, 0, 0.9)), linear-gradient(135deg, rgba(255, 165, 0, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/2/2b/Waffle_Maker.png" alt="Hay Day Waffle Maker">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🧇</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥞</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍯</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍓</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🧈</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Porridge Bar 🥣</h3>
+                        <h3 class="ar">بار الشوفان 🥣</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 119, Price: 1,300,000 coins, Build time: 4 d, XP: 44, Produces porridge. 🥣🍓</p>
+                        <p class="ar">مستوى الفتح: 119، السعر: 1300000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج الشوفان. 🥣🍓</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 218, 185, 0.5), rgba(255, 165, 0, 0.9)), linear-gradient(135deg, rgba(255, 228, 196, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/5/5a/Porridge_Bar.png" alt="Hay Day Porridge Bar">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥣</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🍓</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🥛</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍯</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🫐</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="en">Milkshake Bar 🥤</h3>
+                        <h3 class="ar">بار الميلك شيك 🥤</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="en">Unlock level: 124, Price: 1,350,000 coins, Build time: 4 d, XP: 44, Produces milkshakes. 🥛🥤</p>
+                        <p class="ar">مستوى الفتح: 124، السعر: 1350000 عملة، وقت البناء: 4 أيام، XP: 44، ينتج الميلك شيك. 🥛🥤</p>
+                        <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5), rgba(135, 206, 235, 0.9)), linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent 70%);">
+                            <img src="https://static.wikia.nocookie.net/hayday/images/4/4a/Milkshake_Bar.png" alt="Hay Day Milkshake Bar">
+                            <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🥤</div>
+                            <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🥛</div>
+                            <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🍓</div>
+                            <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🍌</div>
+                            <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🍦</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="features" class="section">
+            <h2 class="en">Features 🏘️🚂✨</h2>
+            <h2 class="ar">الميزات 🏘️🚂✨</h2>
+            <div class="grid">
+                <div class="card" id="derby">
+                    <h3 class="en">Derby 🏇🏆</h3>
+                    <h3 class="ar">الديربي 🏇🏆</h3>
+                    <p class="en">Weekly horse race for neighborhoods. No direct cost to participate. Complete tasks to earn points and horseshoes for prizes like coins, vouchers, and decorations. Leagues from Novice to Champion. Special types like Bingo for extra rewards. Team up and win! 🎉🏅🥇</p>
+                    <p class="ar">سباق أسبوعي للأحياء. لا تكلفة مباشرة للمشاركة. أكمل المهام لكسب نقاط وحدوات حديدية لجوائز مثل العملات والقسائم والزخارف. دوريات من مبتدئ إلى بطل. أنواع خاصة مثل البنغو لجوائز إضافية. تعاون وفز! 🎉🏅🥇</p>
+                    <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 69, 0, 0.5), rgba(139, 0, 0, 0.9)), linear-gradient(135deg, rgba(255, 140, 0, 0.3), transparent 70%);">
+                        <img src="https://static.wikia.nocookie.net/hayday/images/e/e8/Derby_Stand.png" alt="Hay Day Derby">
+                        <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🏇</div>
+                        <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🏆</div>
+                        <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🎉</div>
+                        <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🥇</div>
+                        <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">✨</div>
+                    </div>
+                </div>
+                <div class="card" id="train">
+                    <h3 class="en">Train (Town) 🚂🏙️</h3>
+                    <h3 class="ar">القطار (المدينة) 🚂🏙️</h3>
+                    <p class="en">Unlock at level 34. Repair cost: 20,000 coins, 3 days (or 50 diamonds), XP: 39. Serve visitors for coins, XP, reputation. Upgrade for more visitors and rewards. Personal train picks up from neighbors. Fun town life! 🏙️😊🚉</p>
+                    <p class="ar">فتح في المستوى 34. تكلفة الإصلاح: 20,000 عملة، 3 أيام (أو 50 ماسة)، XP: 39. خدم الزوار للعملات، XP، السمعة. ترقية لزوار أكثر وجوائز. القطار الشخصي يجلب من الجيران. حياة مدينة ممتعة! 🏙️😊🚉</p>
+                    <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(255, 140, 0, 0.5), rgba(128, 128, 128, 0.9)), linear-gradient(135deg, rgba(192, 192, 192, 0.3), transparent 70%);">
+                        <img src="https://i.ytimg.com/vi/GIuvMSSy08k/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLArCR2-CGPIeiG-Dv8PncEw6grm7g" alt="Hay Day Train">
+                        <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🚂</div>
+                        <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🏙️</div>
+                        <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🚉</div>
+                        <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">😊</div>
+                        <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">✨</div>
+                    </div>
+                </div>
+                <div class="card" id="valley">
+                    <h3 class="en">Valley 🌄🏞️</h3>
+                    <h3 class="ar">الوادي 🌄🏞️</h3>
+                    <p class="en">Unlock at level 25, no cost. Seasons last 3 weeks. Collect tokens by fulfilling requests, quests. Use tokens in shops for items. Collect chickens or sanctuary animals collectively for exclusive shop. Fuel for travel, buy with diamonds if needed. Adventure awaits! 🐔🦒🌳</p>
+                    <p class="ar">فتح في المستوى 25، لا تكلفة. المواسم تدوم 3 أسابيع. جمع التوكنز بإكمال الطلبات، المهام. استخدم التوكنز في المتاجر للعناصر. جمع الدجاج أو حيوانات الملاذ جماعياً لمتجر حصري. وقود للسفر، اشترِ بالماس إذا لزم. مغامرة تنتظر! 🐔🦒🌳</p>
+                    <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(50, 205, 50, 0.5), rgba(34, 139, 34, 0.9)), linear-gradient(135deg, rgba(144, 238, 144, 0.3), transparent 70%);">
+                        <img src="https://preview.redd.it/valley-map-may-2025-v0-dqmmoduihrye1.jpeg?auto=webp&s=0b734e278d9c942f31386ea35b2c355893ccdcf3" alt="Hay Day Valley">
+                        <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🌄</div>
+                        <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🏞️</div>
+                        <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🐔</div>
+                        <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🦒</div>
+                        <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌳</div>
+                    </div>
+                </div>
+                <div class="card" id="neighborhood">
+                    <h3 class="en">Neighborhood 🏘️👥</h3>
+                    <h3 class="ar">الحي 🏘️👥</h3>
+                    <p class="en">Unlock at level 10, repair 200 coins, 2 hours. Join free, create 500 coins. Benefits: chat, trade, help with orders, derby participation. Up to 30 players. Build community and fun! 👥❤️🤝</p>
+                    <p class="ar">فتح في المستوى 10، إصلاح 200 عملة، 2 ساعات. انضمام مجاني، إنشاء 500 عملة. فوائد: دردشة، تجارة، مساعدة في الطلبات، مشاركة في الديربي. حتى 30 لاعب. بنِ مجتمعاً ومتعة! 👥❤️🤝</p>
+                    <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5), rgba(70, 130, 180, 0.9)), linear-gradient(135deg, rgba(135, 206, 235, 0.3), transparent 70%);">
+                        <img src="https://static.wikia.nocookie.net/hayday/images/a/a6/Neighborhood_House.png" alt="Hay Day Neighborhood">
+                        <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🏘️</div>
+                        <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">👥</div>
+                        <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">❤️</div>
+                        <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🤝</div>
+                        <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">💬</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="resources" class="section">
+            <h2 class="en">Resources ⛏️🎣💎</h2>
+            <h2 class="ar">الموارد ⛏️🎣💎</h2>
+            <div class="grid">
+                <div class="card" id="mine">
+                    <h3 class="en">Mine ⛏️⚒️</h3>
+                    <h3 class="ar">المنجم ⛏️⚒️</h3>
+                    <p class="en">Unlock level: 24, Repair cost: 21,000 coins, Time: 1 day 11 hours, XP: 28. Use tools like dynamite (25 coins max), TNT (72), shovel (108), pickaxe (126) to mine ores (silver, gold, platinum, coal, iron) and diamonds. Treasure awaits underground! 🌟💰🪙</p>
+                    <p class="ar">مستوى الفتح: 24، تكلفة الإصلاح: 21,000 عملة، وقت: 1 يوم 11 ساعة، XP: 28. استخدم أدوات مثل الديناميت (25 عملة كحد أقصى)، تي إن تي (72)، مجرفة (108)، فأس (126) لتعدين الخامات (فضة، ذهب، بلاتين، فحم، حديد) والماس. كنوز تنتظر تحت الأرض! 🌟💰🪙</p>
+                    <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(128, 128, 128, 0.5), rgba(0, 0, 0, 0.9)), linear-gradient(135deg, rgba(169, 169, 169, 0.3), transparent 70%);">
+                        <img src="https://i.ytimg.com/vi/ndvTmAGZhBY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBul3OqPIEsmEaYk_wIsCN5fQ04Yg" alt="Hay Day Mine">
+                        <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">⛏️</div>
+                        <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">⚒️</div>
+                        <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">💎</div>
+                        <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🪙</div>
+                        <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">🌟</div>
+                    </div>
+                </div>
+                <div class="card" id="fishing">
+                    <h3 class="en">Fishing Boat 🎣🛥️</h3>
+                    <h3 class="ar">قارب الصيد 🎣🛥️</h3>
+                    <p class="en">Unlock level: 27, Repair cost: 10,000 coins, Time: 3 days, XP: 47. Use lures (made at workbench) and nets to catch fish, lobsters, ducks. Expand spots with supplies. Catch rare fish for diamonds! 🐟✨🎣</p>
+                    <p class="ar">مستوى الفتح: 27، تكلفة الإصلاح: 10,000 عملة، وقت: 3 أيام، XP: 47. استخدم الطعوم (مصنوعة في ورشة الطعوم) والشباك لصيد الأسماك، الكركند، البط. توسع الأماكن بالإمدادات. اصطد أسماك نادرة للماس! 🐟✨🎣</p>
+                    <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(0, 191, 255, 0.5), rgba(0, 0, 139, 0.9)), linear-gradient(135deg, rgba(70, 130, 180, 0.3), transparent 70%);">
+                        <img src="https://i.ytimg.com/vi/8m8kdTBIwxY/mqdefault.jpg" alt="Hay Day Fishing Boat">
+                        <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🎣</div>
+                        <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">🛥️</div>
+                        <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🐟</div>
+                        <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🦞</div>
+                        <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">✨</div>
+                    </div>
+                </div>
+                <div class="card" id="boat">
+                    <h3 class="en">Boat 🛥️⚓</h3>
+                    <h3 class="ar">القارب 🛥️⚓</h3>
+                    <p class="en">Unlock level: 17, Repair cost: 7,000 coins, Time: 2 minutes, XP: 27. Fill crates with products for coins, XP, vouchers, puzzle pieces. Ask help from friends. Special events for extra rewards! ⚓🌊🚤</p>
+                    <p class="ar">مستوى الفتح: 17، تكلفة الإصلاح: 7,000 عملة، وقت: 2 دقيقة، XP: 27. ملء الصناديق بالمنتجات للعملات، XP، قسائم، قطع ألغاز. اطلب مساعدة من الأصدقاء. أحداث خاصة لجوائز إضافية! ⚓🌊🚤</p>
+                    <div class="img-sparkle-wrapper" style="background: radial-gradient(circle at center, rgba(0, 191, 255, 0.5), rgba(0, 0, 205, 0.9)), linear-gradient(135deg, rgba(30, 144, 255, 0.3), transparent 70%);">
+                        <img src="https://static.wikia.nocookie.net/hayday/images/2/2c/Riverboat.png" alt="Hay Day Boat">
+                        <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;">🛥️</div>
+                        <div class="sparkle" style="top: 25%; left: 75%; animation-delay: 0.7s;">⚓</div>
+                        <div class="sparkle" style="top: 65%; left: 25%; animation-delay: 1.4s;">🌊</div>
+                        <div class="sparkle" style="top: 45%; left: 65%; animation-delay: 2.1s;">🚤</div>
+                        <div class="sparkle" style="top: 80%; left: 85%; animation-delay: 2.8s;">📦</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="events" class="section">
+            <h2 class="en">Events 🎉🥳</h2>
+            <h2 class="ar">الأحداث 🎉🥳</h2>
+            <p class="en">Stay updated with cosmic events in Hay Day! 🚀🌌</p>
+            <p class="ar">ابق على اطلاع بالأحداث الكونية في هاي داي! 🚀🌌</p>
+        </section>
+        <section id="tips" class="section">
+            <h2 class="en">Tips 💡🧠</h2>
+            <h2 class="ar">نصائح 💡🧠</h2>
+            <p class="en">Advanced strategies for interstellar farming. 🌟🚀</p>
+            <p class="ar">استراتيجيات متقدمة للزراعة بين النجوم. 🌟🚀</p>
+        </section>
+        <section id="community" class="section">
+            <h2 class="en">Community 👥🤝</h2>
+            <h2 class="ar">المجتمع 👥🤝</h2>
+            <p class="en">Join the cosmic community of Hay Day players. 🌌👨‍👩‍👧‍👦</p>
+            <p class="ar">انضم إلى المجتمع الكوني للاعبي هاي داي. 🌌👨‍👩‍👧‍👦</p>
+        </section>
+    </main>
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});">عودة إلى الأعلى - Back to Top ⬆️</button>
+    <div id="searchModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('searchModal')">&times;</span>
+            <h2>بحث في الدليل 🔍</h2>
+            <input type="text" placeholder="ابحث هنا..." style="width:80%;padding:10px;border-radius:10px;border:none;margin:10px 0">
+            <button>بحث 🔎</button>
+        </div>
+    </div>
+    <div class="shortcut-bar">
+        <a href="#farm">المزرعة 🌾</a>
+        <a href="#machines">الآلات 🚜</a>
+        <a href="#features">الميزات ✨</a>
+        <a href="#resources">الموارد ⛏️</a>
+        <a href="#events">الأحداث 🎉</a>
+    </div>
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle('light-mode')
+        }
+        function toggleLanguage() {
+            document.body.classList.toggle('english')
+        }
+        const headers = document.querySelectorAll('.accordion-header');
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block'
+            })
+        });
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block"
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none"
+        }
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none"
+                }
+            }
+        };
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'l') {
+                toggleLanguage()
+            } else if (event.key === 'm') {
+                toggleMode()
+            } else if (event.key === 's') {
+                openModal('searchModal')
+            }
+        });
+        window.onscroll = function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progress").style.width = scrolled + "%"
+        };
+        document.getElementById('toggleNavBtn').addEventListener('click', function() {
+            const nav = document.getElementById('topNav');
+            nav.classList.toggle('hidden')
+        });
+    </script>
+</body>
+</html>
